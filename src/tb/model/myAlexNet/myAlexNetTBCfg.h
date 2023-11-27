@@ -3,6 +3,9 @@
 
 #define dimX 10
 
+// Extra Buffer
+#define EXTRA_BUFFER_SIZE 10000
+
 // Input Size
 #define DATA_0_C 1
 #define DATA_0_H 1

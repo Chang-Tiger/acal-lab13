@@ -1,6 +1,10 @@
 #include "myGemmTB.h"
 bool myGemm_Kernel()
 {
+    /******************      8-2.1-4 : Quantization      ******************/
+    myQuantiInfo quantiInfo = {.scaling_factor = 0, .zero_point = 0};
+    /**********************************************************************/
+
     int8_t data[GEMM_dimM * GEMM_dimK] = {0};
     int8_t gemm_w[GEMM_dimK * GEMM_dimN] = {0};
     int8_t gemm_b[GEMM_dimM * GEMM_dimN] = {0};
@@ -28,8 +32,8 @@ bool myGemm_Kernel()
     myTensorInfo gemm1_0_Test = {.C = 1, .H = GEMM_dimM, .W = GEMM_dimN, .data = gemmTest};
 
     myGemmInfo gemm1_info = {.weight = gemm1_w_0, .bias = gemm1_b_0};
-    myGemm(&gemm1_0, &data_0, &gemm1_info);
-    myGemmScalar(&gemm1_0_Test, &data_0, &gemm1_info);
+    myGemm(&gemm1_0, &data_0, &gemm1_info, &quantiInfo);
+    myGemmScalar(&gemm1_0_Test, &data_0, &gemm1_info, &quantiInfo);
 
     // printf("----------    Matrix C     ----------\n");
     // printf("----------  SIMD Extension  ---------\n");
@@ -45,9 +49,8 @@ bool myGemm_Kernel()
     for (int m = 0; m < GEMM_dimM; m++)
         for (int n = 0; n < GEMM_dimN; n++)
             correct += ((gemm[m * GEMM_dimN + n] & 0x000000ff) == (gemmTest[m * GEMM_dimN + n] & 0x000000ff) ? 1 : 0);
-    printf("-------------------------------------\n");
+
     printf("[ TEST ] `GEMM`  :               %4s\n", correct == GEMM_dimM * GEMM_dimN ? "Pass" : "Fail");
-    printf("-------------------------------------\n");
 
     return correct == GEMM_dimM * GEMM_dimN ? true : false;
 }

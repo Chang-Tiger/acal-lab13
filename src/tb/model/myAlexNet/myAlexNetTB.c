@@ -1,14 +1,6 @@
 #include "myAlexNetTB.h"
 #include "myAlexNetTBCfg.h"
 
-void input_init(myTensorInfo *input)
-{
-}
-
-void param_init(myConvInfo *convInfo, myGemmInfo *gemmInfo)
-{
-}
-
 void myAlexNetTB()
 {
     int8_t data0[DATA_0_C * DATA_0_H * DATA_0_W] = {0};
@@ -47,6 +39,12 @@ void myAlexNetTB()
     int8_t gemm2_b[GEMM_2_B_C * GEMM_2_B_H * GEMM_2_B_W] = {0};
     int8_t gemm3_w[GEMM_3_W_C * GEMM_3_W_H * GEMM_3_W_W] = {0};
     int8_t gemm3_b[GEMM_3_B_C * GEMM_3_B_H * GEMM_3_B_W] = {0};
+    int8_t extra_buffer_0[EXTRA_BUFFER_SIZE] = {0};
+
+    // Quantization Information
+    myQuantiInfo conv1_q, relu1_q, mxpl1_q, conv2_q, relu2_q, mxpl2_q, conv3_q, relu3_q, conv4_q, relu4_q, conv5_q,
+        relu5_q, mxpl3_q, gemm1_q, relu6_q, gemm2_q, relu7_q, gemm3_q, relu8_q;
+
     myTensorInfo data0_0 = {.C = DATA_0_C, .H = DATA_0_H, .W = DATA_0_W, .data = data0};  // -------- / Conv_1 I
     myTensorInfo conv1_1 = {.C = CONV_1_C, .H = CONV_1_H, .W = CONV_1_W, .data = conv1};  // Conv_1 O / ReLU_1 I
     myTensorInfo relu1_2 = {.C = RELU_1_C, .H = RELU_1_H, .W = RELU_1_W, .data = relu1};  // ReLU_1 O / MxPl_1 I
@@ -67,6 +65,9 @@ void myAlexNetTB()
     myTensorInfo relu7_17 = {.C = RELU_7_C, .H = RELU_7_H, .W = RELU_7_W, .data = relu7}; // ReLU_7 O / Gemm_3 I
     myTensorInfo gemm3_18 = {.C = GEMM_3_C, .H = GEMM_3_H, .W = GEMM_3_W, .data = gemm3}; // Gemm_3 O / ReLU_8 I
     myTensorInfo data1_19 = {.C = RELU_8_C, .H = RELU_8_H, .W = RELU_8_W, .data = data1}; // ReLU_8 O / --------
+
+    // Extra Buffer for CONV to store input data from im2col
+    myTensorInfo extra_buffer = {.C = 0, .H = 0, .W = 0, .data = extra_buffer_0};
     // Weight And Bias
     myTensorInfo conv1_w_0 = {.C = CONV_1_W_C, .H = CONV_1_W_H, .W = CONV_1_W_W, .data = conv1_w};  // Conv_1
     myTensorInfo conv1_b_0 = {.C = CONV_1_B_C, .H = CONV_1_B_H, .W = CONV_1_B_W, .data = conv1_b};  // Conv_1
@@ -92,27 +93,32 @@ void myAlexNetTB()
                              .stride = CONV_1_STRIDE,
                              .padding = CONV_1_PADDING,
                              .kernel = conv1_w_0,
-                             .bias = conv1_b_0};
+                             .bias = conv1_b_0,
+                             .extraBuffer = extra_buffer};
     myConvInfo conv2_info = {.kernelSize = CONV_2_KERNEL_SIZE,
                              .stride = CONV_2_STRIDE,
                              .padding = CONV_2_PADDING,
                              .kernel = conv2_w_4,
-                             .bias = conv2_b_4};
+                             .bias = conv2_b_4,
+                             .extraBuffer = extra_buffer};
     myConvInfo conv3_info = {.kernelSize = CONV_3_KERNEL_SIZE,
                              .stride = CONV_3_STRIDE,
                              .padding = CONV_3_PADDING,
                              .kernel = conv3_w_7,
-                             .bias = conv3_b_7};
+                             .bias = conv3_b_7,
+                             .extraBuffer = extra_buffer};
     myConvInfo conv4_info = {.kernelSize = CONV_4_KERNEL_SIZE,
                              .stride = CONV_4_STRIDE,
                              .padding = CONV_4_PADDING,
                              .kernel = conv4_w_9,
-                             .bias = conv4_b_9};
+                             .bias = conv4_b_9,
+                             .extraBuffer = extra_buffer};
     myConvInfo conv5_info = {.kernelSize = CONV_5_KERNEL_SIZE,
                              .stride = CONV_5_STRIDE,
                              .padding = CONV_5_PADDING,
                              .kernel = conv5_w_11,
-                             .bias = conv5_b_11};
+                             .bias = conv5_b_11,
+                             .extraBuffer = extra_buffer};
 
     myMxPlInfo mxpl1_info = {.kernelSize = MXPL_1_KERNEL_SIZE, .stride = MXPL_1_STRIDE, .padding = MXPL_1_PADDING};
     myMxPlInfo mxpl2_info = {.kernelSize = MXPL_2_KERNEL_SIZE, .stride = MXPL_2_STRIDE, .padding = MXPL_2_PADDING};
@@ -123,7 +129,8 @@ void myAlexNetTB()
     myTensorInfo tnsrInfo[20] = {data0_0,  conv1_1,  relu1_2,  mxpl1_3,  conv2_4,  relu2_5,  mxpl2_6,
                                  conv3_7,  relu3_8,  conv4_9,  relu4_10, conv5_11, relu5_12, mxpl3_13,
                                  gemm1_14, relu6_15, gemm2_16, relu7_17, gemm3_18, data1_19};
-    input_init(&data0_0);
-    param_init(convInfo, gemmInfo);
-    myAlexNet(convInfo, gemmInfo, mxplInfo, tnsrInfo);
+    myQuantiInfo quanInfo[19] = {conv1_q, relu1_q, mxpl1_q, conv2_q, relu2_q, mxpl2_q, conv3_q,
+                                 relu3_q, conv4_q, relu4_q, conv5_q, relu5_q, mxpl3_q, gemm1_q,
+                                 relu6_q, gemm2_q, relu7_q, gemm3_q, relu8_q};
+    myAlexNet(convInfo, gemmInfo, mxplInfo, tnsrInfo, quanInfo);
 }

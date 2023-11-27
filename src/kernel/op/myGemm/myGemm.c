@@ -1,7 +1,9 @@
 #include "myGemm.h"
 
-void myGemm(myTensorInfo *outputs, myTensorInfo *inputs, myGemmInfo *info)
+void myGemm(myTensorInfo *outputs, myTensorInfo *inputs, myGemmInfo *info, myQuantiInfo *qInfo)
 {
+    printf("Quantization Information scFactor :%d zeroPt :%d\n", qInfo->scaling_factor, qInfo->zero_point);
+
     int index_A, index_B, index_C;
     int8_t temp_A[4] = {0}, temp_B[4] = {0};
 #ifdef PER_LAYER_QUANTIZATION
@@ -51,8 +53,9 @@ void myGemm(myTensorInfo *outputs, myTensorInfo *inputs, myGemmInfo *info)
     }
 }
 
-void myGemmScalar(myTensorInfo *outputs, myTensorInfo *inputs, myGemmInfo *info)
+void myGemmScalar(myTensorInfo *outputs, myTensorInfo *inputs, myGemmInfo *info, myQuantiInfo *qInfo)
 {
+    printf("Quantization Information scFactor :%d zeroPt :%d\n", qInfo->scaling_factor, qInfo->zero_point);
     int8_t temp_A[4] = {0}, temp_B[4] = {0};
     int index_A, index_B, index_C;
     for (int m = 0; m < inputs->H; m++)

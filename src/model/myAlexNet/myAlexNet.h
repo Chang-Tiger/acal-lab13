@@ -14,8 +14,7 @@
 extern "C"
 {
 #endif
-    void myAlexNet(myConvInfo *convInfo, myGemmInfo *gemmInfo, myMxPlInfo *mxplInfo, myTensorInfo *tnsrInfo);
-
+    void myAlexNet(myConvInfo *, myGemmInfo *, myMxPlInfo *, myTensorInfo *, myQuantiInfo *);
 #ifdef __cplusplus
 }
 #endif

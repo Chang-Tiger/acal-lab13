@@ -2,6 +2,7 @@
 #define _MY_GEMM_H_
 
 #include "../../../simd/mySimdInst.h"
+#include "../../includes/myQuanti.h"
 #include "../../includes/myTensor.h"
 #include "cfu.h"
 #include "myGemmCfg.h"
@@ -20,8 +21,8 @@ extern "C"
         myTensorInfo bias;
     } myGemmInfo;
 
-    void myGemm(myTensorInfo *, myTensorInfo *, myGemmInfo *);
-    void myGemmScalar(myTensorInfo *, myTensorInfo *, myGemmInfo *);
+    void myGemm(myTensorInfo *, myTensorInfo *, myGemmInfo *, myQuantiInfo *);
+    void myGemmScalar(myTensorInfo *, myTensorInfo *, myGemmInfo *, myQuantiInfo *);
 
 #ifdef __cplusplus
 }

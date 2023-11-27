@@ -1,5 +1,5 @@
-#ifndef _TB_MODEL_
-#define _TB_MODEL_
+#ifndef _TB_MODEL_H_
+#define _TB_MODEL_H_
 
 #include "myAlexNet/myAlexNetTB.h"
 

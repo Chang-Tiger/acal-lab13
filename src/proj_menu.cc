@@ -38,14 +38,22 @@ void do_GEMM_with_SIMD(void)
 
 void do_CONV_with_SIMD(void)
 {
+    printf("%s\n", myConv_Kernel() ? "Correct" : "Wrong");
 }
 
 void do_RELU_with_SIMD(void)
 {
+    printf("%s\n", myReLU_Kernel() ? "Correct" : "Wrong");
 }
 
 void do_MXPL_with_SIMD(void)
 {
+    printf("%s\n", myMxPl_Kernel() ? "Correct" : "Wrong");
+}
+
+void do_OP_with_SIMD(void)
+{
+    printf("%s\n", myGemm_Kernel() & myConv_Kernel() & myReLU_Kernel() & myMxPl_Kernel() ? "Correct" : "Wrong");
 }
 
 void do_ALEXNET_INFERENCE(void)
@@ -63,13 +71,16 @@ struct Menu MENU = {
         MENU_ITEM('c', "test CONV Operation     - with SIMD Extension (Per Layer Quantization)", do_CONV_with_SIMD),
         MENU_ITEM('m', "test MXPL Operation     - with SIMD Extension (Per Layer Quantization)", do_MXPL_with_SIMD),
         MENU_ITEM('r', "test RELU Operation     - with SIMD Extension (Per Layer Quantization)", do_RELU_with_SIMD),
+        MENU_ITEM('o', "test ALL  Operation     - with SIMD Extension (Per Layer Quantization)", do_OP_with_SIMD),
         MENU_ITEM('a', "test AlexNet Inference  - with SIMD Extension (Per Layer Quantization)", do_ALEXNET_INFERENCE),
-#else   // PER_OPERATION_QUANTIZATION
+#else // PER_OPERATION_QUANTIZATION
         MENU_ITEM('g', "test GEMM Operation     - with SIMD Extension (Per Operation Quantization)", do_GEMM_with_SIMD),
         MENU_ITEM('c', "test CONV Operation     - with SIMD Extension (Per Operation Quantization)", do_CONV_with_SIMD),
         MENU_ITEM('m', "test MXPL Operation     - with SIMD Extension (Per Operation Quantization)", do_MXPL_with_SIMD),
         MENU_ITEM('r', "test RELU Operation     - with SIMD Extension (Per Operation Quantization)", do_RELU_with_SIMD),
-        MENU_ITEM('a', "test AlexNet Inference  - with SIMD Extension (Per Operation Quantization)", do_ALEXNET_INFERENCE),
+        MENU_ITEM('o', "test ALL  Operation     - with SIMD Extension (Per Operation Quantization)", do_OP_with_SIMD),
+        MENU_ITEM('a', "test AlexNet Inference  - with SIMD Extension (Per Operation Quantization)",
+                  do_ALEXNET_INFERENCE),
 #endif
         MENU_END,
     },

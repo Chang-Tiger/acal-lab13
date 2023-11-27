@@ -2,8 +2,9 @@
 #ifndef _MY_RELU_H_
 #define _MY_RELU_H_
 
-#include "../../includes/myTensor.h"
 #include "../../../simd/mySimdInst.h"
+#include "../../includes/myQuanti.h"
+#include "../../includes/myTensor.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,7 +15,7 @@ extern "C"
 {
 #endif
 
-    void myReLU(myTensorInfo*, myTensorInfo*);
+    void myReLU(myTensorInfo *, myTensorInfo *, myQuantiInfo *);
 #ifdef __cplusplus
 }
 #endif

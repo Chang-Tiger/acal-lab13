@@ -2,8 +2,8 @@
 #ifndef _MY_KERNEL_H_
 #define _MY_KERNEL_H_
 
-#include "op/myOp.h"
+#include "includes/myQuanti.h"
 #include "includes/myTensor.h"
-
+#include "op/myOp.h"
 
 #endif
