@@ -1,8 +1,8 @@
 #ifndef _SIMD_INST_TB_H_
 #define _SIMD_INST_TB_H_
 
-#include "cfu.h"
 #include "../../simd/mySimdInst.h"
+#include "cfu.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,6 +12,7 @@
 extern "C"
 {
 #endif
+    void quantization_init(int, int);
     // 8-2.1   : Integer Extension
     // 8-2.1-1 : Signed Integer Addition
     bool sADD_vv_TB();

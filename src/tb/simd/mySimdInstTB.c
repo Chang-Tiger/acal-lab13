@@ -4,6 +4,12 @@
 #define TB_DATA_SIZE_16_BIT 256
 #define TB_SIZE 100
 
+void quantization_init(int scaling_factor, int zero_point)
+{
+    sQNT_INFO(scaling_factor, zero_point);
+    return;
+}
+
 /********************************************************************************************************************
  *                                          8-2.1-1 : Signed Integer Addition                                       *
  ********************************************************************************************************************/
@@ -234,8 +240,18 @@ bool sMUL_vv_TB()
             temp_8_rs1[idx] = (rand() % TB_DATA_SIZE_16_BIT);
             temp_8_rs2[idx] = (rand() % TB_DATA_SIZE_16_BIT);
             int16_t temp = (int16_t)temp_8_rs1[idx] * (int16_t)temp_8_rs2[idx];
+#ifdef PER_OPERATION_QUANTIZATION_HW
+            /* TODO */ temp_8_rd_tb[idx] = temp;
+#else // PER_OPERATION_QUANTIZATION_LAB
             temp_8_rd_tb[idx] = (int8_t)((temp >> 8) & (int16_t)0x00ff);
+#endif
         }
+#ifdef PER_OPERATION_QUANTIZATION_HW
+        /* TODO */
+        quantization_init(rand() % 8, rand() % 2);
+#else // PER_OPERATION_QUANTIZATION_LAB
+        quantization_init(1, 0);
+#endif
         sMULI8I8S_vv(temp_8_rd, temp_8_rs1, temp_8_rs2);
         muli8i8s_vv_cnt += ((temp_8_rd[0] == temp_8_rd_tb[0]) & (temp_8_rd[1] == temp_8_rd_tb[1]) &
                             (temp_8_rd[2] == temp_8_rd_tb[2]) & (temp_8_rd[3] == temp_8_rd_tb[3]))
@@ -339,14 +355,24 @@ bool sMUL_vx_TB()
     {
         int idx = 4;
         temp_8_rs2 = (rand() % TB_DATA_SIZE_16_BIT);
-
         while (idx--)
         {
             temp_8_rd[idx] = 0;
             temp_8_rs1[idx] = (rand() % TB_DATA_SIZE_16_BIT);
             int16_t temp = (int16_t)temp_8_rs1[idx] * (int16_t)temp_8_rs2;
+#ifdef PER_OPERATION_QUANTIZATION_HW
+            /* TODO */ temp_8_rd_tb[idx] = temp;
+#else // PER_OPERATION_QUANTIZATION_LAB
             temp_8_rd_tb[idx] = (int8_t)((temp >> 8) & (int16_t)0x00ff);
+#endif
         }
+
+#ifdef PER_OPERATION_QUANTIZATION_HW
+        /* TODO */
+        quantization_init(rand() % 8, rand() % 2);
+#else // PER_OPERATION_QUANTIZATION_LAB
+        quantization_init(1, 0);
+#endif
         sMULI8I8S_vx(temp_8_rd, temp_8_rs1, temp_8_rs2);
         muli8i8s_vx_cnt += ((temp_8_rd[0] == temp_8_rd_tb[0]) & (temp_8_rd[1] == temp_8_rd_tb[1]) &
                             (temp_8_rd[2] == temp_8_rd_tb[2]) & (temp_8_rd[3] == temp_8_rd_tb[3]))

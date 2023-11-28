@@ -65,7 +65,12 @@ struct Menu MENU = {
     "Project Menu",
     "project",
     {
-        MENU_ITEM('i', "test SIMD instruction   - Integer Extension", do_SIMD_TB_INT_OP),
+#ifdef PER_OPERATION_QUANTIZATION_HW
+        MENU_ITEM('i', "test SIMD instruction   - Integer Extension   (Homework Edition)", do_SIMD_TB_INT_OP),
+#else // PER_OPERATION_QUANTIZATION_LAB
+        MENU_ITEM('i', "test SIMD instruction   - Integer Extension   (Lab Editionm)", do_SIMD_TB_INT_OP),
+#endif
+
 #ifdef PER_LAYER_QUANTIZATION
         MENU_ITEM('g', "test GEMM Operation     - with SIMD Extension (Per Layer Quantization)", do_GEMM_with_SIMD),
         MENU_ITEM('c', "test CONV Operation     - with SIMD Extension (Per Layer Quantization)", do_CONV_with_SIMD),

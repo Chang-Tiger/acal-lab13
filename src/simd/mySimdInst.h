@@ -106,7 +106,7 @@ extern "C"
 #ifndef _SIMD_QUANTIZE_
 #define _SIMD_QUANTIZE_
 
-#define sQNT_INFO(arrI8a, arrI8b) cfu_op(0b000, 0b0000111, *(int32_t *)(arrI8a), *(int32_t *)(arrI8b))
+#define sQNT_INFO(scalingFactor, zeroPt) cfu_op(0b000, 0b0000111, scalingFactor, zeroPt)
 #define sQNT_I16I8(arrI8c, arrI8a, arrI8b)                                                                             \
     (*(int32_t *)(arrI8c) = cfu_op(0b001, 0b0000111, *(int32_t *)(arrI8a), *(int32_t *)(arrI8b)))
 
