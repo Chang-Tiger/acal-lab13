@@ -12,7 +12,6 @@
 extern "C"
 {
 #endif
-    void quantization_init(int, int);
     // 8-2.1   : Integer Extension
     // 8-2.1-1 : Signed Integer Addition
     bool sADD_vv_TB();

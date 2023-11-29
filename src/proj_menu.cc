@@ -27,13 +27,25 @@ namespace
 
 void do_SIMD_TB_INT_OP(void)
 {
-    printf("%s\n", (sADD_vv_TB() & sADD_vx_TB() & sSUB_vv_TB() & sSUB_vx_TB() & sMUL_vv_TB() & sMUL_vx_TB()) ? "Correct"
-                                                                                                             : "Wrong");
+    printf("============== SIMD Vector-Vector ==============\n");
+    bool vvTB = sADD_vv_TB() & sSUB_vv_TB() & sMUL_vv_TB();
+    printf("=> SUMMARY | SIMD Vector-Vector :           %s\n", vvTB ? "Pass" : "Fail");
+    printf("============== SIMD Vector-Scalar ==============\n");
+    bool vxTB = sADD_vx_TB() & sSUB_vx_TB() & sMUL_vx_TB();
+    printf("=> SUMMARY | SIMD Vector-Scalar :           %s\n", vxTB ? "Pass" : "Fail");
+#ifdef PER_OPERATION_QUANTIZATION_HW
+    printf("\nSIMD Integer Extension (Homework Edition) : %s\n", vvTB & vxTB ? "Pass" : "Fail");
+#else // PER_OPERATION_QUANTIZATION_LAB
+    printf("\nSIMD Integer Extension (Lab Edition) :      %s\n", vvTB & vxTB ? "Pass" : "Fail");
+#endif
+    printf("================================================\n");
 }
 
 void do_GEMM_with_SIMD(void)
 {
-    printf("%s\n", myGemm_Kernel() ? "Correct" : "Wrong");
+    printf("==============   GEMM with SIMD   ==============\n");
+    printf("\n`GEMM` with SIMD (Per Layer Quantization) : %s\n", myGemm_Kernel() ? "Pass" : "Fail");
+    printf("================================================\n");
 }
 
 void do_CONV_with_SIMD(void)
@@ -68,9 +80,8 @@ struct Menu MENU = {
 #ifdef PER_OPERATION_QUANTIZATION_HW
         MENU_ITEM('i', "test SIMD instruction   - Integer Extension   (Homework Edition)", do_SIMD_TB_INT_OP),
 #else // PER_OPERATION_QUANTIZATION_LAB
-        MENU_ITEM('i', "test SIMD instruction   - Integer Extension   (Lab Editionm)", do_SIMD_TB_INT_OP),
+        MENU_ITEM('i', "test SIMD instruction   - Integer Extension   (Lab Edition)", do_SIMD_TB_INT_OP),
 #endif
-
 #ifdef PER_LAYER_QUANTIZATION
         MENU_ITEM('g', "test GEMM Operation     - with SIMD Extension (Per Layer Quantization)", do_GEMM_with_SIMD),
         MENU_ITEM('c', "test CONV Operation     - with SIMD Extension (Per Layer Quantization)", do_CONV_with_SIMD),

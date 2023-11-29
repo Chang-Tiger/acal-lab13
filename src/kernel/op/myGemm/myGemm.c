@@ -2,8 +2,7 @@
 
 void myGemm(myTensorInfo *outputs, myTensorInfo *inputs, myGemmInfo *info, myQuantiInfo *qInfo)
 {
-    printf("Quantization Information scFactor :%d zeroPt :%d\n", qInfo->scaling_factor, qInfo->zero_point);
-
+    sQNT_INFO(qInfo->scaling_factor, qInfo->zero_point);
     int index_A, index_B, index_C;
     int8_t temp_A[4] = {0}, temp_B[4] = {0};
 #ifdef PER_LAYER_QUANTIZATION
@@ -55,7 +54,7 @@ void myGemm(myTensorInfo *outputs, myTensorInfo *inputs, myGemmInfo *info, myQua
 
 void myGemmScalar(myTensorInfo *outputs, myTensorInfo *inputs, myGemmInfo *info, myQuantiInfo *qInfo)
 {
-    printf("Quantization Information scFactor :%d zeroPt :%d\n", qInfo->scaling_factor, qInfo->zero_point);
+    sQNT_INFO(qInfo->scaling_factor, qInfo->zero_point);
     int8_t temp_A[4] = {0}, temp_B[4] = {0};
     int index_A, index_B, index_C;
     for (int m = 0; m < inputs->H; m++)
@@ -71,11 +70,20 @@ void myGemmScalar(myTensorInfo *outputs, myTensorInfo *inputs, myGemmInfo *info,
                 *(int32_t *)temp_B = *(int32_t *)&(info->weight.data)[index_B + n];
                 int output_index = index_C + n;
                 for (int i = 0; i < 4; i++, output_index++)
+                {
 #ifdef PER_LAYER_QUANTIZATION
                     outputs->data_16[output_index] += (int16_t)((int32_t)temp_A[i]) * ((int32_t)temp_B[i]);
-#else //  PER_OPERATION_QUANTIZATION
-                    outputs->data[output_index] += (int8_t)(((int16_t)temp_A[i]) * ((int16_t)temp_B[i]) >> 8);
+#else // PER_OPERATION_QUANTIZATION
+                    int16_t temp = (int16_t)temp_A[i] * (int16_t)temp_B[i];
+#ifdef PER_OPERATION_QUANTIZATION_HW
+                    temp = temp >> qInfo->scaling_factor;
+                    temp = temp + qInfo->zero_point;
+#else // PER_OPERATION_QUANTIZATION_LAB
+                    temp = temp >> 8;
 #endif
+                    outputs->data[output_index] += temp;
+#endif
+                }
             }
         }
         for (int n = 0; n < info->weight.W; n++)

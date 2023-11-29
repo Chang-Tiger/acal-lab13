@@ -4,12 +4,6 @@
 #define TB_DATA_SIZE_16_BIT 256
 #define TB_SIZE 100
 
-void quantization_init(int scaling_factor, int zero_point)
-{
-    sQNT_INFO(scaling_factor, zero_point);
-    return;
-}
-
 /********************************************************************************************************************
  *                                          8-2.1-1 : Signed Integer Addition                                       *
  ********************************************************************************************************************/
@@ -57,8 +51,8 @@ bool sADD_vv_TB()
         sADDI16S_vv(temp_16_rd, temp_16_rs1, temp_16_rs2);
         addi16s_vv_cnt += ((temp_16_rd[0] == temp_16_rd_tb[0]) & (temp_16_rd[1] == temp_16_rd_tb[1])) ? 1 : 0;
     }
-    printf("[ TEST ] `sADDI8S_vv`    :               %s\n", addi8s_vv_cnt == TB_SIZE ? "Pass" : "Fail");
-    printf("[ TEST ] `sADDI16S_vv`   :               %s\n", addi16s_vv_cnt == TB_SIZE ? "Pass" : "Fail");
+    printf("[ TEST ] `sADDI8S_vv`    :               %3d/%3d\n", addi8s_vv_cnt, TB_SIZE);
+    printf("[ TEST ] `sADDI16S_vv`   :               %3d/%3d\n", addi16s_vv_cnt, TB_SIZE);
 
     return (addi8s_vv_cnt + addi16s_vv_cnt) == (2 * TB_SIZE);
 }
@@ -108,8 +102,8 @@ bool sADD_vx_TB()
 
         addi16s_vx_cnt += ((temp_16_rd[0] == temp_16_rd_tb[0]) & (temp_16_rd[1] == temp_16_rd_tb[1])) ? 1 : 0;
     }
-    printf("[ TEST ] `sADDI8S_vx`    :               %s\n", addi8s_vx_cnt == TB_SIZE ? "Pass" : "Fail");
-    printf("[ TEST ] `sADDI16S_vx`   :               %s\n", addi16s_vx_cnt == TB_SIZE ? "Pass" : "Fail");
+    printf("[ TEST ] `sADDI8S_vx`    :               %3d/%3d\n", addi8s_vx_cnt, TB_SIZE);
+    printf("[ TEST ] `sADDI16S_vx`   :               %3d/%3d\n", addi16s_vx_cnt, TB_SIZE);
 
     return (addi8s_vx_cnt + addi16s_vx_cnt) == (2 * TB_SIZE);
 }
@@ -161,8 +155,8 @@ bool sSUB_vv_TB()
         sSUBI16S_vv(temp_16_rd, temp_16_rs1, temp_16_rs2);
         subi16s_vv_cnt += ((temp_16_rd[0] == temp_16_rd_tb[0]) & (temp_16_rd[1] == temp_16_rd_tb[1])) ? 1 : 0;
     }
-    printf("[ TEST ] `sSUBI8S_vv`    :               %s\n", subi8s_vv_cnt == TB_SIZE ? "Pass" : "Fail");
-    printf("[ TEST ] `sSUBI16S_vv`   :               %s\n", subi16s_vv_cnt == TB_SIZE ? "Pass" : "Fail");
+    printf("[ TEST ] `sSUBI8S_vv`    :               %3d/%3d\n", subi8s_vv_cnt, TB_SIZE);
+    printf("[ TEST ] `sSUBI16S_vv`   :               %3d/%3d\n", subi16s_vv_cnt, TB_SIZE);
 
     return (subi8s_vv_cnt + subi16s_vv_cnt) == (2 * TB_SIZE);
 }
@@ -211,8 +205,8 @@ bool sSUB_vx_TB()
         sSUBI16S_vx(temp_16_rd, temp_16_rs1, temp_16_rs2);
         subi16s_vx_cnt += ((temp_16_rd[0] == temp_16_rd_tb[0]) & (temp_16_rd[1] == temp_16_rd_tb[1])) ? 1 : 0;
     }
-    printf("[ TEST ] `sSUBI8S_vx`    :               %s\n", subi8s_vx_cnt == TB_SIZE ? "Pass" : "Fail");
-    printf("[ TEST ] `sSUBI16S_vx`   :               %s\n", subi16s_vx_cnt == TB_SIZE ? "Pass" : "Fail");
+    printf("[ TEST ] `sSUBI8S_vx`   :                %3d/%3d\n", subi8s_vx_cnt, TB_SIZE);
+    printf("[ TEST ] `sSUBI16S_vx`   :               %3d/%3d\n", subi16s_vx_cnt, TB_SIZE);
 
     return (subi8s_vx_cnt + subi16s_vx_cnt) == (2 * TB_SIZE);
 }
@@ -231,8 +225,18 @@ bool sMUL_vv_TB()
     // void sMULI8I8S_vv(int8_t c[4], int8_t a[4], int8_t b[4]);
     tb_idx = TB_SIZE;
     int muli8i8s_vv_cnt = 0;
+    int scaling_factor, zero_point;
     while (tb_idx--)
     {
+#ifdef PER_OPERATION_QUANTIZATION_HW
+        // ScalingFactor =  -7 ~ +7
+        scaling_factor = rand() % 15 - 7;
+        // ZeroPoint     = -10 ~ +10
+        zero_point = rand() % 21 - 10;
+#else // PER_OPERATION_QUANTIZATION_LAB
+        scaling_factor = 0;
+        zero_point = 0;
+#endif
         int idx = 4;
         while (idx--)
         {
@@ -241,23 +245,22 @@ bool sMUL_vv_TB()
             temp_8_rs2[idx] = (rand() % TB_DATA_SIZE_16_BIT);
             int16_t temp = (int16_t)temp_8_rs1[idx] * (int16_t)temp_8_rs2[idx];
 #ifdef PER_OPERATION_QUANTIZATION_HW
-            /* TODO */ temp_8_rd_tb[idx] = temp;
+            temp = temp >> scaling_factor;
+            temp = temp + zero_point;
 #else // PER_OPERATION_QUANTIZATION_LAB
-            temp_8_rd_tb[idx] = (int8_t)((temp >> 8) & (int16_t)0x00ff);
+            temp = (int8_t)((temp >> 8) & (int16_t)0x00ff); // extremely quantization
 #endif
+            temp_8_rd_tb[idx] = temp;
         }
-#ifdef PER_OPERATION_QUANTIZATION_HW
-        /* TODO */
-        quantization_init(rand() % 8, rand() % 2);
-#else // PER_OPERATION_QUANTIZATION_LAB
-        quantization_init(1, 0);
-#endif
+        sQNT_INFO(scaling_factor, zero_point);
         sMULI8I8S_vv(temp_8_rd, temp_8_rs1, temp_8_rs2);
         muli8i8s_vv_cnt += ((temp_8_rd[0] == temp_8_rd_tb[0]) & (temp_8_rd[1] == temp_8_rd_tb[1]) &
                             (temp_8_rd[2] == temp_8_rd_tb[2]) & (temp_8_rd[3] == temp_8_rd_tb[3]))
                                ? 1
                                : 0;
     }
+    sQNT_INFO(0, 0); // RESET
+
     // 8-2.1-3.7 : Signed Integer Multiplication : sMULI8I16S_vv
     // void sMULI8I16S_vv(int16_t c[4], int8_t a[4], int8_t b[4]);
     tb_idx = TB_SIZE;
@@ -331,11 +334,12 @@ bool sMUL_vv_TB()
         sMULI8I16S_vv_H(temp_16_rd + 2, temp_8_rs1, temp_8_rs2);
         muli8i16s_vv_H += ((temp_16_rd[2] == temp_16_rd_tb[2]) & (temp_16_rd[3] == temp_16_rd_tb[3])) ? 1 : 0;
     }
-    printf("[ TEST ] `sMULI8I8S_vv`  :               %s\n", muli8i8s_vv_cnt == TB_SIZE ? "Pass" : "Fail");
-    printf("[ TEST ] `sMULI8I16S_vv` : .H before .L  %s\n", muli8i16s_vv_HL == TB_SIZE ? "Pass" : "Fail");
-    printf("[ TEST ] `sMULI8I16S_vv` : .L before .H  %s\n", muli8i16s_vv_LH == TB_SIZE ? "Pass" : "Fail");
-    printf("[ TEST ] `sMULI8I16S_vv` : only .L       %s\n", muli8i16s_vv_L == TB_SIZE ? "Pass" : "Fail");
-    printf("[ TEST ] `sMULI8I16S_vv` : only .H       %s\n", muli8i16s_vv_H == TB_SIZE ? "Pass" : "Fail");
+
+    printf("[ TEST ] `sMULI8I8S_vv`  :               %3d/%3d\n", muli8i8s_vv_cnt, TB_SIZE);
+    printf("[ TEST ] `sMULI8I16S_vv` : .H before .L  %3d/%3d\n", muli8i16s_vv_HL, TB_SIZE);
+    printf("[ TEST ] `sMULI8I16S_vv` : .L before .H  %3d/%3d\n", muli8i16s_vv_LH, TB_SIZE);
+    printf("[ TEST ] `sMULI8I16S_vv` : only .L       %3d/%3d\n", muli8i16s_vv_L, TB_SIZE);
+    printf("[ TEST ] `sMULI8I16S_vv` : only .H       %3d/%3d\n", muli8i16s_vv_H, TB_SIZE);
 
     return (muli8i8s_vv_cnt == TB_SIZE) & (muli8i16s_vv_HL == TB_SIZE) & (muli8i16s_vv_LH == TB_SIZE) &
            (muli8i16s_vv_L == TB_SIZE) & (muli8i16s_vv_H == TB_SIZE);
@@ -351,34 +355,42 @@ bool sMUL_vx_TB()
     // void sMULI8I8S_vx(int8_t c[4], int8_t a[4], int8_t b);
     tb_idx = TB_SIZE;
     int muli8i8s_vx_cnt = 0;
+    int scaling_factor, zero_point;
     while (tb_idx--)
     {
         int idx = 4;
         temp_8_rs2 = (rand() % TB_DATA_SIZE_16_BIT);
-        while (idx--)
+#ifdef PER_OPERATION_QUANTIZATION_HW
+        // ScalingFactor =  -7 ~ +7
+        scaling_factor = rand() % 15 - 7;
+        // ZeroPoint     = -10 ~ +10
+        zero_point = rand() % 21 - 10;
+#else // PER_OPERATION_QUANTIZATION_LAB
+        scaling_factor = 0;
+        zero_point = 0;
+#endif
+        while (idx--) // Testbench Generation
         {
             temp_8_rd[idx] = 0;
             temp_8_rs1[idx] = (rand() % TB_DATA_SIZE_16_BIT);
             int16_t temp = (int16_t)temp_8_rs1[idx] * (int16_t)temp_8_rs2;
 #ifdef PER_OPERATION_QUANTIZATION_HW
-            /* TODO */ temp_8_rd_tb[idx] = temp;
+            temp = temp >> scaling_factor;
+            temp = temp + zero_point;
 #else // PER_OPERATION_QUANTIZATION_LAB
-            temp_8_rd_tb[idx] = (int8_t)((temp >> 8) & (int16_t)0x00ff);
+            temp = (int8_t)((temp >> 8) & (int16_t)0x00ff); // extremely quantization
 #endif
+            temp_8_rd_tb[idx] = temp;
         }
-
-#ifdef PER_OPERATION_QUANTIZATION_HW
-        /* TODO */
-        quantization_init(rand() % 8, rand() % 2);
-#else // PER_OPERATION_QUANTIZATION_LAB
-        quantization_init(1, 0);
-#endif
+        sQNT_INFO(scaling_factor, zero_point);
         sMULI8I8S_vx(temp_8_rd, temp_8_rs1, temp_8_rs2);
         muli8i8s_vx_cnt += ((temp_8_rd[0] == temp_8_rd_tb[0]) & (temp_8_rd[1] == temp_8_rd_tb[1]) &
                             (temp_8_rd[2] == temp_8_rd_tb[2]) & (temp_8_rd[3] == temp_8_rd_tb[3]))
                                ? 1
                                : 0;
     }
+    sQNT_INFO(0, 0); // RESET
+
     // 8-2.1-3.8 : Signed Integer Multiplication : sMULI8I16S_vx
     // void sMULI8I16S_vx(int16_t c[2], int8_t a[4], int8_t b);
     tb_idx = TB_SIZE;
@@ -457,13 +469,12 @@ bool sMUL_vx_TB()
         muli8i16s_vx_H += ((temp_16_rd[2] == temp_16_rd_tb[2]) & (temp_16_rd[3] == temp_16_rd_tb[3])) ? 1 : 0;
     }
 
-    printf("[ TEST ] `sMULI8I8S_vx`  :               %s\n", muli8i8s_vx_cnt == TB_SIZE ? "Pass" : "Fail");
-    printf("[ TEST ] `sMULI8I16S_vx` : .H before .L  %s\n", muli8i16s_vx_HL == TB_SIZE ? "Pass" : "Fail");
-    printf("[ TEST ] `sMULI8I16S_vx` : .L before .H  %s\n", muli8i16s_vx_LH == TB_SIZE ? "Pass" : "Fail");
-    printf("[ TEST ] `sMULI8I16S_vx` : only .L       %s\n", muli8i16s_vx_L == TB_SIZE ? "Pass" : "Fail");
-    printf("[ TEST ] `sMULI8I16S_vx` : only .H       %s\n", muli8i16s_vx_H == TB_SIZE ? "Pass" : "Fail");
+    printf("[ TEST ] `sMULI8I8S_vx`  :               %3d/%3d\n", muli8i8s_vx_cnt, TB_SIZE);
+    printf("[ TEST ] `sMULI8I16S_vx` : .H before .L  %3d/%3d\n", muli8i16s_vx_HL, TB_SIZE);
+    printf("[ TEST ] `sMULI8I16S_vx` : .L before .H  %3d/%3d\n", muli8i16s_vx_LH, TB_SIZE);
+    printf("[ TEST ] `sMULI8I16S_vx` : only .L       %3d/%3d\n", muli8i16s_vx_L, TB_SIZE);
+    printf("[ TEST ] `sMULI8I16S_vx` : only .H       %3d/%3d\n", muli8i16s_vx_H, TB_SIZE);
 
     return (muli8i8s_vx_cnt == TB_SIZE) & (muli8i16s_vx_HL == TB_SIZE) & (muli8i16s_vx_LH == TB_SIZE) &
            (muli8i16s_vx_L == TB_SIZE) & (muli8i16s_vx_H == TB_SIZE);
-    return true;
 }
