@@ -22,5 +22,4 @@ void myAlexNet(myConvInfo *convInfo, myGemmInfo *gemmInfo, myMxPlInfo *mxplInfo,
     myGemm(&tnsrInfo[16], &tnsrInfo[15], &gemmInfo[1], &quanInfo[15]);
     myReLU(&tnsrInfo[17], &tnsrInfo[16], &quanInfo[16]);
     myGemm(&tnsrInfo[18], &tnsrInfo[17], &gemmInfo[2], &quanInfo[17]);
-    myReLU(&tnsrInfo[19], &tnsrInfo[18], &quanInfo[18]);
 }

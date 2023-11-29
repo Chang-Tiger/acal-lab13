@@ -40,11 +40,12 @@ DEFINES += NPROFILE
 #DEFINES += INCLUDE_ALL_TFLM_EXAMPLES
 
 # Uncomment this line to include the ASCII animated donut demo.
-# DEFINES += DONUT_DEMO
+#DEFINES += DONUT_DEMO
 
 # Uncomment this line to include the per layer quantization.
 #DEFINES += PER_LAYER_QUANTIZATION
-DEFINES += PER_OPERATION_QUANTIZATION_LAB
-#DEFINES += PER_OPERATION_QUANTIZATION_HW
+
+# Uncomment this line to run Homework.
+# DEFINES += PER_OPERATION_QUANTIZATION_HW
 
 include ../proj.mk

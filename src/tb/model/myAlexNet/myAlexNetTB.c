@@ -21,8 +21,7 @@ void myAlexNetTB()
     int8_t relu6[RELU_6_C * RELU_6_H * RELU_6_W] = {0};
     int8_t gemm2[GEMM_2_C * GEMM_2_H * GEMM_2_W] = {0};
     int8_t relu7[RELU_7_C * RELU_7_H * RELU_7_W] = {0};
-    int8_t gemm3[GEMM_3_C * GEMM_3_H * GEMM_3_W] = {0};
-    int8_t data1[RELU_8_C * RELU_8_H * RELU_8_W] = {0};
+    int8_t data1[GEMM_3_C * GEMM_3_H * GEMM_3_W] = {0};
     int8_t conv1_w[CONV_1_W_C * CONV_1_W_H * CONV_1_W_W] = {0};
     int8_t conv1_b[CONV_1_B_C * CONV_1_B_H * CONV_1_B_W] = {0};
     int8_t conv2_w[CONV_2_W_C * CONV_2_W_H * CONV_2_W_W] = {0};
@@ -43,7 +42,7 @@ void myAlexNetTB()
 
     // Quantization Information
     myQuantiInfo conv1_q, relu1_q, mxpl1_q, conv2_q, relu2_q, mxpl2_q, conv3_q, relu3_q, conv4_q, relu4_q, conv5_q,
-        relu5_q, mxpl3_q, gemm1_q, relu6_q, gemm2_q, relu7_q, gemm3_q, relu8_q;
+        relu5_q, mxpl3_q, gemm1_q, relu6_q, gemm2_q, relu7_q, gemm3_q;
 
     myTensorInfo data0_0 = {.C = DATA_0_C, .H = DATA_0_H, .W = DATA_0_W, .data = data0};  // -------- / Conv_1 I
     myTensorInfo conv1_1 = {.C = CONV_1_C, .H = CONV_1_H, .W = CONV_1_W, .data = conv1};  // Conv_1 O / ReLU_1 I
@@ -63,8 +62,7 @@ void myAlexNetTB()
     myTensorInfo relu6_15 = {.C = RELU_6_C, .H = RELU_6_H, .W = RELU_6_W, .data = relu6}; // ReLU_6 O / Gemm_2 I
     myTensorInfo gemm2_16 = {.C = GEMM_2_C, .H = GEMM_2_H, .W = GEMM_2_W, .data = gemm2}; // Gemm_2 O / ReLU_7 I
     myTensorInfo relu7_17 = {.C = RELU_7_C, .H = RELU_7_H, .W = RELU_7_W, .data = relu7}; // ReLU_7 O / Gemm_3 I
-    myTensorInfo gemm3_18 = {.C = GEMM_3_C, .H = GEMM_3_H, .W = GEMM_3_W, .data = gemm3}; // Gemm_3 O / ReLU_8 I
-    myTensorInfo data1_19 = {.C = RELU_8_C, .H = RELU_8_H, .W = RELU_8_W, .data = data1}; // ReLU_8 O / --------
+    myTensorInfo data1_18 = {.C = GEMM_3_C, .H = GEMM_3_H, .W = GEMM_3_W, .data = data1}; // Gemm_3 O / --------
 
     // Extra Buffer for CONV to store input data from im2col
     myTensorInfo extra_buffer = {.C = 0, .H = 0, .W = 0, .data = extra_buffer_0};
@@ -128,9 +126,8 @@ void myAlexNetTB()
     myMxPlInfo mxplInfo[3] = {mxpl1_info, mxpl2_info, mxpl3_info};
     myTensorInfo tnsrInfo[20] = {data0_0,  conv1_1,  relu1_2,  mxpl1_3,  conv2_4,  relu2_5,  mxpl2_6,
                                  conv3_7,  relu3_8,  conv4_9,  relu4_10, conv5_11, relu5_12, mxpl3_13,
-                                 gemm1_14, relu6_15, gemm2_16, relu7_17, gemm3_18, data1_19};
-    myQuantiInfo quanInfo[19] = {conv1_q, relu1_q, mxpl1_q, conv2_q, relu2_q, mxpl2_q, conv3_q,
-                                 relu3_q, conv4_q, relu4_q, conv5_q, relu5_q, mxpl3_q, gemm1_q,
-                                 relu6_q, gemm2_q, relu7_q, gemm3_q, relu8_q};
+                                 gemm1_14, relu6_15, gemm2_16, relu7_17, data1_18};
+    myQuantiInfo quanInfo[19] = {conv1_q, relu1_q, mxpl1_q, conv2_q, relu2_q, mxpl2_q, conv3_q, relu3_q, conv4_q,
+                                 relu4_q, conv5_q, relu5_q, mxpl3_q, gemm1_q, relu6_q, gemm2_q, relu7_q, gemm3_q};
     myAlexNet(convInfo, gemmInfo, mxplInfo, tnsrInfo, quanInfo);
 }

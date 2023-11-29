@@ -8,7 +8,7 @@ void myConv(myTensorInfo *outputs, myTensorInfo *inputs, myConvInfo *info, myQua
     printf("       | weight Tensor | %d %d %d \n", info->kernel.data[0], info->kernel.C, info->kernel.H,
            info->kernel.W);
     printf("       | bias   Tensor | %d %d %d \n", info->bias.data[0], info->bias.C, info->bias.H, info->bias.W);
-    printf("       | Extra  Buffer | %d %d %d \n", info->extraBuffer.data[0]);
+    printf("       | Extra  Buffer | %d\n", info->extraBuffer.data[0]);
     printf("       | INFO          | %d %d %d \n", info->kernelSize, info->stride, info->padding);
     printf("       | Quantization Information scFactor :%d zeroPt :%d\n", qInfo->scaling_factor, qInfo->zero_point);
     printf("       | Quantization Information scFactor :%d zeroPt :%d\n", qInfo->scaling_factor, qInfo->zero_point);

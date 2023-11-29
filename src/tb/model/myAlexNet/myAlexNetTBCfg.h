@@ -156,8 +156,4 @@
 #define GEMM_3_B_C 1
 #define GEMM_3_B_H 1
 #define GEMM_3_B_W 1
-// Layer 19 : ReLU
-#define RELU_8_C GEMM_3_C
-#define RELU_8_H GEMM_3_H
-#define RELU_8_W GEMM_3_W
 #endif
