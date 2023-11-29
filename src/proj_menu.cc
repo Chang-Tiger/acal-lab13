@@ -1,5 +1,6 @@
 /*
  * Copyright 2021 The CFU-Playground Authors
+ * Copyright (c) 2023 Playlab, National Cheng Kung University.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,25 +79,24 @@ struct Menu MENU = {
     "project",
     {
 #ifdef PER_OPERATION_QUANTIZATION_HW
-        MENU_ITEM('i', "test SIMD instruction   - Integer Extension   (Homework Edition)", do_SIMD_TB_INT_OP),
+        MENU_ITEM('i', "test SIMD inst      - Integer Extension   (Homework Edition)", do_SIMD_TB_INT_OP),
 #else // PER_OPERATION_QUANTIZATION_LAB
-        MENU_ITEM('i', "test SIMD instruction   - Integer Extension   (Lab Edition)", do_SIMD_TB_INT_OP),
+        MENU_ITEM('i', "test SIMD inst      - Integer Extension   (Lab Edition)", do_SIMD_TB_INT_OP),
 #endif
 #ifdef PER_LAYER_QUANTIZATION
-        MENU_ITEM('g', "test GEMM Operation     - with SIMD Extension (Per Layer Quantization)", do_GEMM_with_SIMD),
-        MENU_ITEM('c', "test CONV Operation     - with SIMD Extension (Per Layer Quantization)", do_CONV_with_SIMD),
-        MENU_ITEM('m', "test MXPL Operation     - with SIMD Extension (Per Layer Quantization)", do_MXPL_with_SIMD),
-        MENU_ITEM('r', "test RELU Operation     - with SIMD Extension (Per Layer Quantization)", do_RELU_with_SIMD),
-        MENU_ITEM('o', "test ALL  Operation     - with SIMD Extension (Per Layer Quantization)", do_OP_with_SIMD),
-        MENU_ITEM('a', "test AlexNet Inference  - with SIMD Extension (Per Layer Quantization)", do_ALEXNET_INFERENCE),
+        MENU_ITEM('g', "test GEMM Operation - with SIMD Extension (Per Layer Quantization)", do_GEMM_with_SIMD),
+        MENU_ITEM('c', "test CONV Operation - with SIMD Extension (Per Layer Quantization)", do_CONV_with_SIMD),
+        MENU_ITEM('m', "test MXPL Operation - with SIMD Extension (Per Layer Quantization)", do_MXPL_with_SIMD),
+        MENU_ITEM('r', "test RELU Operation - with SIMD Extension (Per Layer Quantization)", do_RELU_with_SIMD),
+        MENU_ITEM('o', "test ALL  Operation - with SIMD Extension (Per Layer Quantization)", do_OP_with_SIMD),
+        MENU_ITEM('a', "test AlexNet        - with SIMD Extension (Per Layer Quantization)", do_ALEXNET_INFERENCE),
 #else // PER_OPERATION_QUANTIZATION
-        MENU_ITEM('g', "test GEMM Operation     - with SIMD Extension (Per Operation Quantization)", do_GEMM_with_SIMD),
-        MENU_ITEM('c', "test CONV Operation     - with SIMD Extension (Per Operation Quantization)", do_CONV_with_SIMD),
-        MENU_ITEM('m', "test MXPL Operation     - with SIMD Extension (Per Operation Quantization)", do_MXPL_with_SIMD),
-        MENU_ITEM('r', "test RELU Operation     - with SIMD Extension (Per Operation Quantization)", do_RELU_with_SIMD),
-        MENU_ITEM('o', "test ALL  Operation     - with SIMD Extension (Per Operation Quantization)", do_OP_with_SIMD),
-        MENU_ITEM('a', "test AlexNet Inference  - with SIMD Extension (Per Operation Quantization)",
-                  do_ALEXNET_INFERENCE),
+        MENU_ITEM('g', "test GEMM Operation - with SIMD Extension (Per Operation Quantization)", do_GEMM_with_SIMD),
+        MENU_ITEM('c', "test CONV Operation - with SIMD Extension (Per Operation Quantization)", do_CONV_with_SIMD),
+        MENU_ITEM('m', "test MXPL Operation - with SIMD Extension (Per Operation Quantization)", do_MXPL_with_SIMD),
+        MENU_ITEM('r', "test RELU Operation - with SIMD Extension (Per Operation Quantization)", do_RELU_with_SIMD),
+        MENU_ITEM('o', "test ALL  Operation - with SIMD Extension (Per Operation Quantization)", do_OP_with_SIMD),
+        MENU_ITEM('a', "test AlexNet        - with SIMD Extension (Per Operation Quantization)", do_ALEXNET_INFERENCE),
 #endif
         MENU_END,
     },
