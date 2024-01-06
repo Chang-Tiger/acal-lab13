@@ -6,16 +6,12 @@
 
 namespace acal_lab
 {
-
 namespace tb
 {
-
 class TB_ReLU : public tb_Operator
 {
-
   public:
-    TB_ReLU(tensorInfo *opt, tensorInfo *ipt, quantiInfo *quantInfo, QauntiType quantType)
-        : tb_Operator(opt, ipt, quantInfo, quantType)
+    TB_ReLU(tensorInfo *opt, tensorInfo *ipt, QauntiType quantType) : tb_Operator(opt, ipt, quantType)
     {
         execFunction = reinterpret_cast<void (tb_Operator::*)()>(&TB_ReLU::exec);
     }
@@ -23,6 +19,7 @@ class TB_ReLU : public tb_Operator
 };
 
 bool tb_ReLU();
+
 } // namespace tb
-}; // namespace acal_lab
+} // namespace acal_lab
 #endif // _TB_OP_RELU_H_

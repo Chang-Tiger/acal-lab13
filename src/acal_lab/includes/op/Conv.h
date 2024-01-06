@@ -25,10 +25,11 @@ class Conv : public Operator
 {
   protected:
     convInfo *info;
+    quantiInfo *qInfo;
 
   public:
     Conv(tensorInfo *opt, tensorInfo *ipt, convInfo *opInfo, quantiInfo *quantInfo, QauntiType qType)
-        : Operator(opt, ipt, quantInfo, qType), info(opInfo)
+        : Operator(opt, ipt, qType), info(opInfo), qInfo(quantInfo)
     {
     }
 

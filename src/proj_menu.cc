@@ -35,18 +35,22 @@ void do_SIMD_TB_lab(void)
     bool vvTB = tb::tb_sADDS_vv() & tb::tb_sSUBS_vv() & tb::tb_sPMULI8I16S_vv() & tb::tb_sAMULI8I8S_vv_NQ();
     printf("---------------------------------------------------\n");
     printf("SIMD Integer Extension : (Lab Edition)       | %4s\n", vvTB ? "Pass" : "Fail");
+    printf("===================================================\n");
 }
 
 void do_SIMD_TB_hw(void)
 {
     printf("=============== SIMD Vector-Vector ================\n");
     bool vvTB = tb::tb_sADDS_vv() & tb::tb_sSUBS_vv() & tb::tb_sPMULI8I16S_vv() & tb::tb_sAMULI8I8S_vv();
+    printf("---------------------------------------------------\n");
     printf("=> SUMMARY | SIMD Vector-Vector :            | %4s\n", vvTB ? "Pass" : "Fail");
     printf("=============== SIMD Vector-Scalar ================\n");
     bool vxTB = tb::tb_sADDS_vx() & tb::tb_sSUBS_vx() & tb::tb_sPMULI8I16S_vx() & tb::tb_sAMULI8I8S_vx();
+    printf("---------------------------------------------------\n");
     printf("=> SUMMARY | SIMD Vector-Scalar :            | %4s\n", vxTB ? "Pass" : "Fail");
     printf("---------------------------------------------------\n");
     printf("SIMD Integer Extension : (Homework Edition)  | %4s\n", vvTB & vxTB ? "Pass" : "Fail");
+    printf("===================================================\n");
 }
 
 void do_GEMM_with_SIMD_lab(void)
@@ -98,9 +102,14 @@ void do_OP_with_SIMD_hw(void)
     printf("=============================================================\n");
 }
 
-void do_ALEXNET_INFERENCE(void)
+void do_ALEXNET_INFERENCE_DATA0(void)
 {
-    acal_lab::tb::tb_AlexNet();
+    acal_lab::tb::tb_AlexNet(acal_lab::tb::testbench::PICTURE_0);
+}
+
+void do_ALEXNET_INFERENCE_DATA1(void)
+{
+    acal_lab::tb::tb_AlexNet(acal_lab::tb::testbench::PICTURE_1);
 }
 
 struct Menu MENU = {
@@ -115,7 +124,8 @@ struct Menu MENU = {
         MENU_ITEM('d', "test MXPL Operator    - with SIMD Extension (Homework Edition)", do_MXPL_with_SIMD_hw),
         MENU_ITEM('e', "test RELU Operator    - with SIMD Extension (Homework Edition)", do_RELU_with_SIMD_hw),
         MENU_ITEM('f', "test ALL  Operator    - with SIMD Extension (Homework Edition)", do_OP_with_SIMD_hw),
-        MENU_ITEM('g', "test AlexNet Model    - with SIMD Extension (Homework Edition)", do_ALEXNET_INFERENCE),
+        MENU_ITEM('g', "test AlexNet (data0)  - with SIMD Extension (Homework Edition)", do_ALEXNET_INFERENCE_DATA0),
+        MENU_ITEM('h', "test AlexNet (daat1)  - with SIMD Extension (Homework Edition)", do_ALEXNET_INFERENCE_DATA1),
         MENU_END,
     },
 };

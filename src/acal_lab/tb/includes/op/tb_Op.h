@@ -27,12 +27,10 @@ class tb_Operator
   protected:
     tensorInfo *output;
     tensorInfo *input;
-    quantiInfo *qInfo;
     void (tb_Operator::*execFunction)();
 
   public:
-    tb_Operator(tensorInfo *opt, tensorInfo *ipt, quantiInfo *quantInfo, QauntiType quantType)
-        : output(opt), input(ipt), qInfo(quantInfo)
+    tb_Operator(tensorInfo *opt, tensorInfo *ipt, QauntiType quantType) : output(opt), input(ipt)
     {
         switch (quantType)
         {
@@ -48,23 +46,27 @@ class tb_Operator
         case PER_OPERATION_ADVANCE_QUANTI:
             execFunction = &tb_Operator::execPerOperationAdvanceQuant;
             break;
+        case GENERAL:
+            execFunction = &tb_Operator::exec;
+            break;
         }
     }
     void execute()
     {
         (this->*execFunction)();
     };
-    virtual void execPerLayerNaiveQuant() = 0;
-    virtual void execPerLayerAdvanceQuant() = 0;
-    virtual void execPerOperationNaiveQuant() = 0;
-    virtual void execPerOperationAdvanceQuant() = 0;
+    virtual void execPerLayerNaiveQuant() {};
+    virtual void execPerLayerAdvanceQuant() {};
+    virtual void execPerOperationNaiveQuant() {};
+    virtual void execPerOperationAdvanceQuant() {};
+    virtual void exec() {};
 };
 
 bool compare8(tensorInfo *, tensorInfo *);
 bool compare16(tensorInfo *, tensorInfo *);
 void randomInit8(tensorInfo *);
 void randomInit16(tensorInfo *);
-}; // namespace tb
-}; // namespace acal_lab
+} // namespace tb
+} // namespace acal_lab
 
 #endif // _TB_OP_OP_H_

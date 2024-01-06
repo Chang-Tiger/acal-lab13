@@ -13,8 +13,7 @@ namespace acal_lab
 class ReLU : public Operator
 {
   public:
-    ReLU(tensorInfo *opt, tensorInfo *ipt, quantiInfo *quantInfo, QauntiType qType)
-        : Operator(opt, ipt, quantInfo, qType)
+    ReLU(tensorInfo *opt, tensorInfo *ipt, QauntiType qType) : Operator(opt, ipt, qType)
     {
         execFunction = reinterpret_cast<void (Operator::*)()>(&ReLU::exec);
     }

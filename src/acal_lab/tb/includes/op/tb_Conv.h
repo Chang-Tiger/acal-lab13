@@ -6,18 +6,17 @@
 
 namespace acal_lab
 {
-
 namespace tb
 {
-
 class TB_Conv : public tb_Operator
 {
   protected:
     convInfo *info;
+    quantiInfo *qInfo;
 
   public:
     TB_Conv(tensorInfo *opt, tensorInfo *ipt, convInfo *opInfo, quantiInfo *quantInfo, QauntiType quantType)
-        : tb_Operator(opt, ipt, quantInfo, quantType), info(opInfo)
+        : tb_Operator(opt, ipt, quantType), info(opInfo), qInfo(quantInfo)
     {
     }
     void execPerLayerNaiveQuant();
@@ -27,14 +26,12 @@ class TB_Conv : public tb_Operator
 };
 
 bool tb_Conv(testType);
-
 bool tb_ConvPerOperationrNaiveQuant(int8_t *, int8_t *, int8_t *, int8_t *, int8_t *);
 bool tb_ConvPerOperationAdvanceQuant(int8_t *, int8_t *, int8_t *, int8_t *, int8_t *);
 bool tb_ConvPerLayerNaiveQuant(int8_t *, int8_t *, int16_t *, int16_t *, int16_t *);
 bool tb_ConvPerLayerAdvanceQuant(int8_t *, int8_t *, int16_t *, int16_t *, int16_t *);
 
-}; // namespace tb
-
-}; // namespace acal_lab
+} // namespace tb
+} // namespace acal_lab
 
 #endif // _TB_OP_CONV_H_

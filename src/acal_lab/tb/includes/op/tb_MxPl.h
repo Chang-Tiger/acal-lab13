@@ -6,18 +6,16 @@
 
 namespace acal_lab
 {
-
 namespace tb
 {
-
 class TB_MxPl : public tb_Operator
 {
   protected:
     mxPlInfo *info;
 
   public:
-    TB_MxPl(tensorInfo *opt, tensorInfo *ipt, mxPlInfo *opInfo, quantiInfo *quantInfo, QauntiType quantType)
-        : tb_Operator(opt, ipt, quantInfo, quantType), info(opInfo)
+    TB_MxPl(tensorInfo *opt, tensorInfo *ipt, mxPlInfo *opInfo, QauntiType quantType)
+        : tb_Operator(opt, ipt, quantType), info(opInfo)
     {
         execFunction = reinterpret_cast<void (tb_Operator::*)()>(&TB_MxPl::exec);
     }
@@ -25,6 +23,7 @@ class TB_MxPl : public tb_Operator
 };
 
 bool tb_MxPl();
+
 } // namespace tb
 } // namespace acal_lab
 #endif // _TB_OP_MXPL_H_

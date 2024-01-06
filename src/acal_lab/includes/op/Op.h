@@ -15,12 +15,10 @@ class Operator
   protected:
     tensorInfo *output;
     tensorInfo *input;
-    quantiInfo *qInfo;
     void (Operator::*execFunction)();
 
   public:
-    Operator(tensorInfo *opt, tensorInfo *ipt, quantiInfo *quantInfo, qauntiType qType)
-        : output(opt), input(ipt), qInfo(quantInfo)
+    Operator(tensorInfo *opt, tensorInfo *ipt, qauntiType qType) : output(opt), input(ipt)
     {
         switch (qType)
         {
@@ -36,6 +34,8 @@ class Operator
         case PER_OPERATION_ADVANCE_QUANTI:
             execFunction = &Operator::execPerOperationAdvanceQuant;
             break;
+        default:
+            execFunction = &Operator::exec;
         }
     }
     void execute()
@@ -46,6 +46,7 @@ class Operator
     virtual void execPerLayerAdvanceQuant() {};
     virtual void execPerOperationNaiveQuant() {};
     virtual void execPerOperationAdvanceQuant() {};
+    virtual void exec() {};
 };
 
 }; // namespace acal_lab

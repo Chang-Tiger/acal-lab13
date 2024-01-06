@@ -23,8 +23,7 @@ class MxPl : public Operator
     mxPlInfo *info;
 
   public:
-    MxPl(tensorInfo *opt, tensorInfo *ipt, mxPlInfo *opInfo, quantiInfo *quantInfo, QauntiType qType)
-        : Operator(opt, ipt, quantInfo, qType), info(opInfo)
+    MxPl(tensorInfo *opt, tensorInfo *ipt, mxPlInfo *opInfo, QauntiType qType) : Operator(opt, ipt, qType), info(opInfo)
     {
         execFunction = reinterpret_cast<void (Operator::*)()>(&MxPl::exec);
     }

@@ -16,10 +16,11 @@ class TB_Gemm : public tb_Operator
 {
   protected:
     gemmInfo *info;
+    quantiInfo *qInfo;
 
   public:
     TB_Gemm(tensorInfo *opt, tensorInfo *ipt, gemmInfo *opInfo, quantiInfo *quantInfo, QauntiType quantType)
-        : tb_Operator(opt, ipt, quantInfo, quantType), info(opInfo)
+        : tb_Operator(opt, ipt, quantType), info(opInfo), qInfo(quantInfo)
     {
     }
     void execPerLayerNaiveQuant();
@@ -29,7 +30,6 @@ class TB_Gemm : public tb_Operator
 };
 
 bool tb_Gemm(testType);
-
 bool tb_GemmPerOperationrNaiveQuant(int8_t *, int8_t *, int8_t *, int8_t *, int8_t *);
 bool tb_GemmPerOperationAdvanceQuant(int8_t *, int8_t *, int8_t *, int8_t *, int8_t *);
 bool tb_GemmPerLayerNaiveQuant(int8_t *, int8_t *, int16_t *, int16_t *, int16_t *);

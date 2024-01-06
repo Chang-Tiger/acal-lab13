@@ -1,8 +1,23 @@
 #include "acal_lab/tb/includes/models/AlexNet/tb_AlexNet.h"
 
-void acal_lab::tb::tb_AlexNet()
+// Quantization Information
+#include "acal_lab/tb/includes/models/AlexNet/quantInfo/tb_qInfo_Conv1.h"
+#include "acal_lab/tb/includes/models/AlexNet/quantInfo/tb_qInfo_Conv2.h"
+#include "acal_lab/tb/includes/models/AlexNet/quantInfo/tb_qInfo_Conv3.h"
+#include "acal_lab/tb/includes/models/AlexNet/quantInfo/tb_qInfo_Conv4.h"
+#include "acal_lab/tb/includes/models/AlexNet/quantInfo/tb_qInfo_Conv5.h"
+#include "acal_lab/tb/includes/models/AlexNet/quantInfo/tb_qInfo_Gemm1.h"
+#include "acal_lab/tb/includes/models/AlexNet/quantInfo/tb_qInfo_Gemm2.h"
+#include "acal_lab/tb/includes/models/AlexNet/quantInfo/tb_qInfo_Gemm3.h"
+
+// input Testbench
+#include "acal_lab/tb/includes/models/AlexNet/data/tb_data_0.h"
+#include "acal_lab/tb/includes/models/AlexNet/data/tb_data_1.h"
+
+void acal_lab::tb::tb_AlexNet(testbench tb)
 {
-    int8_t data0[DATA_0_C * DATA_0_H * DATA_0_W] = {0};
+    int8_t *data0 = (tb == testbench::PICTURE_0) ? (int8_t*)tb_data_0 :(int8_t*)tb_data_1;
+
     int8_t conv1[CONV_1_C * CONV_1_H * CONV_1_W] = {0};
     int8_t relu1[RELU_1_C * RELU_1_H * RELU_1_W] = {0};
     int8_t mxpl1[MXPL_1_C * MXPL_1_H * MXPL_1_W] = {0};
@@ -40,24 +55,14 @@ void acal_lab::tb::tb_AlexNet()
     int8_t extra_buffer_0[EXTRA_BUFFER_SIZE] = {0};
 
     // Quantization Information
-    quantiInfo conv1_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo relu1_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo mxpl1_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo conv2_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo relu2_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo mxpl2_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo conv3_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo relu3_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo conv4_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo relu4_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo conv5_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo relu5_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo mxpl3_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo gemm1_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo relu6_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo gemm2_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo relu7_q = {.scaling_factor = 0, .zero_point = 0};
-    quantiInfo gemm3_q = {.scaling_factor = 0, .zero_point = 0};
+    quantiInfo conv1_q = {.scaling_factor = (int8_t)tb_qInfo_Conv1[0], .zero_point = (int8_t)tb_qInfo_Conv1[1]};
+    quantiInfo conv2_q = {.scaling_factor = (int8_t)tb_qInfo_Conv2[0], .zero_point = (int8_t)tb_qInfo_Conv2[1]};
+    quantiInfo conv3_q = {.scaling_factor = (int8_t)tb_qInfo_Conv3[0], .zero_point = (int8_t)tb_qInfo_Conv3[1]};
+    quantiInfo conv4_q = {.scaling_factor = (int8_t)tb_qInfo_Conv4[0], .zero_point = (int8_t)tb_qInfo_Conv4[1]};
+    quantiInfo conv5_q = {.scaling_factor = (int8_t)tb_qInfo_Conv5[0], .zero_point = (int8_t)tb_qInfo_Conv5[1]};
+    quantiInfo gemm1_q = {.scaling_factor = (int8_t)tb_qInfo_Gemm1[0], .zero_point = (int8_t)tb_qInfo_Gemm1[1]};
+    quantiInfo gemm2_q = {.scaling_factor = (int8_t)tb_qInfo_Gemm2[0], .zero_point = (int8_t)tb_qInfo_Gemm2[1]};
+    quantiInfo gemm3_q = {.scaling_factor = (int8_t)tb_qInfo_Gemm3[0], .zero_point = (int8_t)tb_qInfo_Gemm3[1]};
 
     tensorInfo data0_0 = {.C = DATA_0_C, .H = DATA_0_H, .W = DATA_0_W, .data = data0};  // -------- / Conv_1 I
     tensorInfo conv1_1 = {.C = CONV_1_C, .H = CONV_1_H, .W = CONV_1_W, .data = conv1};  // Conv_1 O / ReLU_1 I
@@ -138,10 +143,9 @@ void acal_lab::tb::tb_AlexNet()
     convInfo convInfo[5] = {conv1_info, conv2_info, conv3_info, conv4_info, conv5_info};
     gemmInfo gemmInfo[3] = {gemm1_info, gemm2_info, gemm3_info};
     mxPlInfo mxplInfo[3] = {mxpl1_info, mxpl2_info, mxpl3_info};
-    tensorInfo tnsrInfo[20] = {data0_0,  conv1_1,  relu1_2,  mxpl1_3,  conv2_4,  relu2_5,  mxpl2_6,
+    tensorInfo tnsrInfo[19] = {data0_0,  conv1_1,  relu1_2,  mxpl1_3,  conv2_4,  relu2_5,  mxpl2_6,
                                conv3_7,  relu3_8,  conv4_9,  relu4_10, conv5_11, relu5_12, mxpl3_13,
                                gemm1_14, relu6_15, gemm2_16, relu7_17, data1_18};
-    quantiInfo quanInfo[19] = {conv1_q, relu1_q, mxpl1_q, conv2_q, relu2_q, mxpl2_q, conv3_q, relu3_q, conv4_q,
-                               relu4_q, conv5_q, relu5_q, mxpl3_q, gemm1_q, relu6_q, gemm2_q, relu7_q, gemm3_q};
+    quantiInfo quanInfo[8] = {conv1_q, conv2_q, conv3_q, conv4_q, conv5_q, gemm1_q, gemm2_q, gemm3_q};
     acal_lab::alexNet(convInfo, gemmInfo, mxplInfo, tnsrInfo, quanInfo);
 }

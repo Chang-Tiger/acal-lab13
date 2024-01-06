@@ -22,10 +22,11 @@ class Gemm : public Operator
 {
   protected:
     gemmInfo *info;
+    quantiInfo *qInfo;
 
   public:
     Gemm(tensorInfo *opt, tensorInfo *ipt, gemmInfo *opInfo, quantiInfo *quantInfo, QauntiType qType)
-        : Operator(opt, ipt, quantInfo, qType), info(opInfo)
+        : Operator(opt, ipt, qType), info(opInfo), qInfo(quantInfo)
     {
     }
 
