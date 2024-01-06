@@ -19,85 +19,92 @@
 
 #include <stdio.h>
 
+#include "acal_lab/tb/includes/op.h"
+#include "acal_lab/tb/includes/simd.h"
 #include "cfu.h"
 #include "menu.h"
-#include "tb/tb.h"
+
+using namespace acal_lab;
 
 namespace
 {
 
-void do_SIMD_TB_INT_OP(void)
+void do_SIMD_TB_lab(void)
 {
-    printf("============== SIMD Vector-Vector ==============\n");
-    bool vvTB = sADD_vv_TB() & sSUB_vv_TB() & sMUL_vv_TB();
-    printf("=> SUMMARY | SIMD Vector-Vector :           %s\n", vvTB ? "Pass" : "Fail");
-    printf("============== SIMD Vector-Scalar ==============\n");
-    bool vxTB = sADD_vx_TB() & sSUB_vx_TB() & sMUL_vx_TB();
-    printf("=> SUMMARY | SIMD Vector-Scalar :           %s\n", vxTB ? "Pass" : "Fail");
-#ifdef PER_OPERATION_QUANTIZATION_HW
-    printf("\nSIMD Integer Extension (Homework Edition) : %s\n", vvTB & vxTB ? "Pass" : "Fail");
-#else // PER_OPERATION_QUANTIZATION_LAB
-    printf("\nSIMD Integer Extension (Lab Edition) :      %s\n", vvTB & vxTB ? "Pass" : "Fail");
-#endif
-    printf("================================================\n");
+    printf("=============== SIMD Vector-Vector ================\n");
+    bool vvTB = tb::tb_sADDS_vv() & tb::tb_sSUBS_vv() & tb::tb_sPMULI8I16S_vv() & tb::tb_sAMULI8I8S_vv_NQ();
+    printf("===================================================\n");
+    printf("SIMD Integer Extension : (Lab Edition)         %s\n", vvTB ? "Pass" : "Fail");
+    printf("===================================================\n");
 }
 
-void do_GEMM_with_SIMD(void)
+void do_SIMD_TB_hw(void)
 {
-    printf("==============   GEMM with SIMD   ==============\n");
-    printf("\n`GEMM` with SIMD (Per Layer Quantization) : %s\n", myGemm_Kernel() ? "Pass" : "Fail");
-    printf("================================================\n");
+    printf("=============== SIMD Vector-Vector ================\n");
+    bool vvTB = tb::tb_sADDS_vv() & tb::tb_sSUBS_vv() & tb::tb_sPMULI8I16S_vv() & tb::tb_sAMULI8I8S_vv();
+    printf("=> SUMMARY | SIMD Vector-Vector :              %s\n", vvTB ? "Pass" : "Fail");
+    printf("=============== SIMD Vector-Scalar ================\n");
+    bool vxTB = tb::tb_sADDS_vx() & tb::tb_sSUBS_vx() & tb::tb_sPMULI8I16S_vx() & tb::tb_sAMULI8I8S_vx();
+    printf("=> SUMMARY | SIMD Vector-Scalar :              %s\n", vxTB ? "Pass" : "Fail");
+    printf("===================================================\n");
+    printf("SIMD Integer Extension : (Homework Edition)    %s\n", vvTB & vxTB ? "Pass" : "Fail");
+    printf("===================================================\n");
 }
 
-void do_CONV_with_SIMD(void)
+void do_GEMM_with_SIMD_lab(void)
 {
-    printf("%s\n", myConv_Kernel() ? "Correct" : "Wrong");
+    printf("==============   GEMM with SIMD   =================\n");
+    printf("\n`GEMM` with SIMD (LAB Edition)            : %s\n", tb::tb_Gemm(tb::testType::LAB) ? "Pass" : "Fail");
+    printf("===================================================\n");
 }
 
-void do_RELU_with_SIMD(void)
+void do_GEMM_with_SIMD_hw(void)
 {
-    printf("%s\n", myReLU_Kernel() ? "Correct" : "Wrong");
+    printf("==============   GEMM with SIMD   =================\n");
+    printf("\n`GEMM` with SIMD (Homework Edition)       : %s\n", tb::tb_Gemm(tb::testType::HW) ? "Pass" : "Fail");
+    printf("===================================================\n");
 }
 
-void do_MXPL_with_SIMD(void)
-{
-    printf("%s\n", myMxPl_Kernel() ? "Correct" : "Wrong");
-}
+// void do_CONV_with_SIMD(void)
+// {
+//     printf("%s\n", myConv_Kernel() ? "Correct" : "Wrong");
+// }
 
-void do_OP_with_SIMD(void)
-{
-    printf("%s\n", myGemm_Kernel() & myConv_Kernel() & myReLU_Kernel() & myMxPl_Kernel() ? "Correct" : "Wrong");
-}
+// void do_RELU_with_SIMD(void)
+// {
+//     printf("%s\n", myReLU_Kernel() ? "Correct" : "Wrong");
+// }
 
-void do_ALEXNET_INFERENCE(void)
-{
-    myAlexNetTB();
-}
+// void do_MXPL_with_SIMD(void)
+// {
+//     printf("%s\n", myMxPl_Kernel() ? "Correct" : "Wrong");
+// }
+
+// void do_OP_with_SIMD(void)
+// {
+//     printf("%s\n", myGemm_Kernel() & myConv_Kernel() & myReLU_Kernel() &
+//     myMxPl_Kernel() ? "Correct" : "Wrong");
+// }
+
+// void do_ALEXNET_INFERENCE(void)
+// {
+//     myAlexNetTB();
+// }
 
 struct Menu MENU = {
     "Project Menu",
     "project",
     {
-#ifdef PER_OPERATION_QUANTIZATION_HW
-        MENU_ITEM('i', "test SIMD inst      - Integer Extension   (Homework Edition)", do_SIMD_TB_INT_OP),
-#else // PER_OPERATION_QUANTIZATION_LAB
-        MENU_ITEM('i', "test SIMD inst      - Integer Extension   (Lab Edition)", do_SIMD_TB_INT_OP),
-#endif
-#ifdef PER_LAYER_QUANTIZATION
-        MENU_ITEM('g', "test GEMM Operation - with SIMD Extension (Per Layer Quantization)", do_GEMM_with_SIMD),
-        MENU_ITEM('c', "test CONV Operation - with SIMD Extension (Per Layer Quantization)", do_CONV_with_SIMD),
-        MENU_ITEM('m', "test MXPL Operation - with SIMD Extension (Per Layer Quantization)", do_MXPL_with_SIMD),
-        MENU_ITEM('r', "test RELU Operation - with SIMD Extension (Per Layer Quantization)", do_RELU_with_SIMD),
-        MENU_ITEM('o', "test ALL  Operation - with SIMD Extension (Per Layer Quantization)", do_OP_with_SIMD),
-        MENU_ITEM('a', "test AlexNet        - with SIMD Extension (Per Layer Quantization)", do_ALEXNET_INFERENCE),
-#else // PER_OPERATION_QUANTIZATION
-        MENU_ITEM('g', "test GEMM Operation - with SIMD Extension (Per Operation Quantization)", do_GEMM_with_SIMD),
-        MENU_ITEM('c', "test CONV Operation - with SIMD Extension (Per Operation Quantization)", do_CONV_with_SIMD),
-        MENU_ITEM('m', "test MXPL Operation - with SIMD Extension (Per Operation Quantization)", do_MXPL_with_SIMD),
-        MENU_ITEM('r', "test RELU Operation - with SIMD Extension (Per Operation Quantization)", do_RELU_with_SIMD),
-        MENU_ITEM('o', "test ALL  Operation - with SIMD Extension (Per Operation Quantization)", do_OP_with_SIMD),
-        MENU_ITEM('a', "test AlexNet        - with SIMD Extension (Per Operation Quantization)", do_ALEXNET_INFERENCE),
-#endif
+        MENU_ITEM('0', "test SIMD inst      - Integer Extension (Lab Edition)", do_SIMD_TB_lab),
+        MENU_ITEM('1', "test SIMD inst      - Integer Extension (Homework Edidtion)", do_SIMD_TB_hw),
+        MENU_ITEM('2', "test GEMM Operation - with SIMD Extension (Lab Edition)", do_GEMM_with_SIMD_lab),
+        MENU_ITEM('3', "test GEMM Operation - with SIMD Extension (Homework Edidtion)", do_GEMM_with_SIMD_hw),
+        // MENU_ITEM('c', "test CONV Operation - with SIMD Extension",
+        // do_CONV_with_SIMD), MENU_ITEM('m', "test MXPL Operation - with SIMD
+        // Extension", do_MXPL_with_SIMD), MENU_ITEM('r', "test RELU Operation -
+        // with SIMD Extension", do_RELU_with_SIMD), MENU_ITEM('o', "test ALL
+        // Operation - with SIMD Extension", do_OP_with_SIMD), MENU_ITEM('a',
+        // "test AlexNet        - with SIMD Extension", do_ALEXNET_INFERENCE),
         MENU_END,
     },
 };
