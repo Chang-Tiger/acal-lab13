@@ -19,6 +19,7 @@ void acal_lab::Gemm::execPerLayerNaiveQuant()
                 *(int32_t *)temp_A = (int32_t)0x01010101 * (int32_t)input->data[index_A + k];
                 *(int32_t *)temp_B = *(int32_t *)&(info->weight.data)[index_B + n];
                 int output_index = index_C + n;
+                // BUG: use sPMULI8I16S_vv(temp_C, temp_A, temp_B) undefined reference occur
                 sPMULI8I16S_vv_L(temp_C, temp_A, temp_B);
                 sPMULI8I16S_vv_H(temp_C + 2, temp_A, temp_B);
                 sADDI16I16S_vv((int16_t *)&(output->data_16[output_index]), (int16_t *)&(output->data_16[output_index]),

@@ -16,7 +16,7 @@
 
 void acal_lab::tb::tb_AlexNet(testbench tb)
 {
-    int8_t *data0 = (tb == testbench::PICTURE_0) ? (int8_t*)tb_data_0 :(int8_t*)tb_data_1;
+    int8_t *data0 = (tb == testbench::PICTURE_0) ? (int8_t *)tb_data_0 : (int8_t *)tb_data_1;
 
     int8_t conv1[CONV_1_C * CONV_1_H * CONV_1_W] = {0};
     int8_t relu1[RELU_1_C * RELU_1_H * RELU_1_W] = {0};

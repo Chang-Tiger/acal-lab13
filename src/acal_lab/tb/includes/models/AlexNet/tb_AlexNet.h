@@ -9,19 +9,17 @@
 #include "acal_lab/includes/models/AlexNet/AlexNet.h"
 #include "tb_AlexNetConfig.h"
 
-
-
 namespace acal_lab
 {
 namespace tb
 {
-typedef enum TestBench{
+typedef enum TestBench
+{
     PICTURE_0,
     PICTURE_1
 } testbench;
 
-
-void tb_AlexNet(testbench );
+void tb_AlexNet(testbench);
 } // namespace tb
 } // namespace acal_lab
 

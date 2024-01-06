@@ -70,9 +70,6 @@
 #define sPMULI8I16S_vv_H(arrI16c, arrI8a, arrI8b)                                                                      \
     (*(int32_t *)(arrI16c) = cfu_op(0b101, 0b0000010, *(int32_t *)(arrI8a), *(int32_t *)(arrI8b)))
 
-// 8-2.1-3.3 : Signed Integer Multiplication : sPMULI8I16S_vv
-void sPMULI8I16S_vv(int16_t c[4], int8_t a[4], int8_t b[4]);
-
 // 8-2.1-3.4 : Signed Integer Precise(Lossless) Multiplication :
 // sPMULI8I16S_vx_L inline void sPMULI8I16S_vx_L(int16_t c[2], int8_t a[4],
 // int8_t b)
@@ -84,9 +81,6 @@ void sPMULI8I16S_vv(int16_t c[4], int8_t a[4], int8_t b[4]);
 // int8_t b)
 #define sPMULI8I16S_vx_H(arrI16c, arrI8a, I8b)                                                                         \
     (*(int32_t *)(arrI16c) = cfu_op(0b101, 0b1000010, *(int32_t *)(arrI8a), (int32_t)(I8b)))
-
-// 8-2.1-3.6 : Signed Integer Precise(Lossless) Multiplication : sPMULI8I16S_vx
-void sPMULI8I16S_vx(int16_t c[4], int8_t a[4], int8_t b);
 
 /******************************************************************************
  *         8-2.1-4 : Signed Integer Approximate(Lossy) Multiplication         *
