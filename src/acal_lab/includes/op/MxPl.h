@@ -17,8 +17,6 @@ typedef struct MaxPoolInfo
     int padding;
 } mxPlInfo;
 
-void MxPl(tensorInfo *, tensorInfo *, mxPlInfo *, quantiInfo *);
-
 class MxPl : public Operator
 {
   protected:
@@ -28,14 +26,12 @@ class MxPl : public Operator
     MxPl(tensorInfo *opt, tensorInfo *ipt, mxPlInfo *opInfo, quantiInfo *quantInfo, QauntiType qType)
         : Operator(opt, ipt, quantInfo, qType), info(opInfo)
     {
+        execFunction = reinterpret_cast<void (Operator::*)()>(&MxPl::exec);
     }
 
-    void execPerLayerNaiveQuant();
-    void execPerLayerAdvanceQuant();
-    void execPerOperationNaiveQuant();
-    void execPerOperationAdvanceQuant();
+    void exec();
 };
 
-}; // namespace acal_lab
+} // namespace acal_lab
 
 #endif // _OP_MXPL_H_

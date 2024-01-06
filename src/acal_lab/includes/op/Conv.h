@@ -16,9 +16,9 @@ typedef struct ConvInfo
     int kernelSize;
     int stride;
     int padding;
-    tensorInfo extraBuffer;
     tensorInfo kernel;
     tensorInfo bias;
+    tensorInfo extraBuffer;
 } convInfo;
 
 class Conv : public Operator

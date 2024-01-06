@@ -25,7 +25,9 @@ class Gemm : public Operator
 
   public:
     Gemm(tensorInfo *opt, tensorInfo *ipt, gemmInfo *opInfo, quantiInfo *quantInfo, QauntiType qType)
-        : Operator(opt, ipt, quantInfo, qType), info(opInfo){}
+        : Operator(opt, ipt, quantInfo, qType), info(opInfo)
+    {
+    }
 
     void execPerLayerNaiveQuant();
     void execPerLayerAdvanceQuant();

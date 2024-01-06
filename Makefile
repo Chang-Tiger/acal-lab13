@@ -42,10 +42,4 @@ DEFINES += NPROFILE
 # Uncomment this line to include the ASCII animated donut demo.
 #DEFINES += DONUT_DEMO
 
-# Uncomment this line to include the per layer quantization.
-#DEFINES += PER_LAYER_QUANTIZATION
-
-# Uncomment this line to run Homework.
-# DEFINES += PER_OPERATION_QUANTIZATION_HW
-
 include ../proj.mk

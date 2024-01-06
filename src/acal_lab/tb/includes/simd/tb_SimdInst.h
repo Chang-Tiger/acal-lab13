@@ -10,6 +10,7 @@
 #include "cfu.h"
 
 // My Project
+#include "acal_lab/includes/simd.h"
 #include "tb_SimdUtil.h"
 #include "tb_SoftwareALU.h"
 

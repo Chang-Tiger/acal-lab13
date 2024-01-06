@@ -1,6 +1,5 @@
 #include "acal_lab/tb/includes/simd/tb_SimdInst.h"
 
-#include "acal_lab/includes/simd.h"
 #define TB_SIZE 100
 
 /******************************************************************************
