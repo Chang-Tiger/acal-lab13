@@ -11,12 +11,22 @@
 #include "acal_lab/tb/includes/models/AlexNet/quantInfo/tb_qInfo_Gemm3.h"
 
 // input Testbench
-#include "acal_lab/tb/includes/models/AlexNet/data/tb_data_0.h"
 #include "acal_lab/tb/includes/models/AlexNet/data/tb_data_1.h"
+#include "acal_lab/tb/includes/models/AlexNet/data/tb_data_2.h"
+
+// Model Weight
+#include "acal_lab/tb/includes/models/AlexNet/weights/conv_0_weight.h"
+#include "acal_lab/tb/includes/models/AlexNet/weights/conv_10_weight.h"
+#include "acal_lab/tb/includes/models/AlexNet/weights/conv_3_weight.h"
+#include "acal_lab/tb/includes/models/AlexNet/weights/conv_6_weight.h"
+#include "acal_lab/tb/includes/models/AlexNet/weights/conv_8_weight.h"
+#include "acal_lab/tb/includes/models/AlexNet/weights/gemm_0_weight.h"
+#include "acal_lab/tb/includes/models/AlexNet/weights/gemm_2_weight.h"
+#include "acal_lab/tb/includes/models/AlexNet/weights/gemm_4_weight.h"
 
 void acal_lab::tb::tb_AlexNet(testbench tb)
 {
-    int8_t *data0 = (tb == testbench::PICTURE_0) ? (int8_t *)tb_data_0 : (int8_t *)tb_data_1;
+    int8_t *data0 = (tb == testbench::PICTURE_0) ? (int8_t *)tb_data_1 : (int8_t *)tb_data_2;
 
     int8_t conv1[CONV_1_C * CONV_1_H * CONV_1_W] = {0};
     int8_t relu1[RELU_1_C * RELU_1_H * RELU_1_W] = {0};
@@ -36,21 +46,21 @@ void acal_lab::tb::tb_AlexNet(testbench tb)
     int8_t gemm2[GEMM_2_C * GEMM_2_H * GEMM_2_W] = {0};
     int8_t relu7[RELU_7_C * RELU_7_H * RELU_7_W] = {0};
     int8_t data1[GEMM_3_C * GEMM_3_H * GEMM_3_W] = {0};
-    int8_t conv1_w[CONV_1_W_C * CONV_1_W_H * CONV_1_W_W] = {0};
+    int8_t *conv1_w = (int8_t *)conv_0_weight;
     int8_t conv1_b[CONV_1_B_C * CONV_1_B_H * CONV_1_B_W] = {0};
-    int8_t conv2_w[CONV_2_W_C * CONV_2_W_H * CONV_2_W_W] = {0};
+    int8_t *conv2_w = (int8_t *)conv_3_weight;
     int8_t conv2_b[CONV_2_B_C * CONV_2_B_H * CONV_2_B_W] = {0};
-    int8_t conv3_w[CONV_3_W_C * CONV_3_W_H * CONV_3_W_W] = {0};
+    int8_t *conv3_w = (int8_t *)conv_6_weight;
     int8_t conv3_b[CONV_3_B_C * CONV_3_B_H * CONV_3_B_W] = {0};
-    int8_t conv4_w[CONV_4_W_C * CONV_4_W_H * CONV_4_W_W] = {0};
+    int8_t *conv4_w = (int8_t *)conv_8_weight;
     int8_t conv4_b[CONV_4_B_C * CONV_4_B_H * CONV_4_B_W] = {0};
-    int8_t conv5_w[CONV_5_W_C * CONV_5_W_H * CONV_5_W_W] = {0};
+    int8_t *conv5_w = (int8_t *)conv_10_weight;
     int8_t conv5_b[CONV_5_B_C * CONV_5_B_H * CONV_5_B_W] = {0};
-    int8_t gemm1_w[GEMM_1_W_C * GEMM_1_W_H * GEMM_1_W_W] = {0};
+    int8_t *gemm1_w = (int8_t *)gemm_0_weight;
     int8_t gemm1_b[GEMM_1_B_C * GEMM_1_B_H * GEMM_1_B_W] = {0};
-    int8_t gemm2_w[GEMM_2_W_C * GEMM_2_W_H * GEMM_2_W_W] = {0};
+    int8_t *gemm2_w = (int8_t *)gemm_2_weight;
     int8_t gemm2_b[GEMM_2_B_C * GEMM_2_B_H * GEMM_2_B_W] = {0};
-    int8_t gemm3_w[GEMM_3_W_C * GEMM_3_W_H * GEMM_3_W_W] = {0};
+    int8_t *gemm3_w = (int8_t *)gemm_4_weight;
     int8_t gemm3_b[GEMM_3_B_C * GEMM_3_B_H * GEMM_3_B_W] = {0};
     int8_t extra_buffer_0[EXTRA_BUFFER_SIZE] = {0};
 
