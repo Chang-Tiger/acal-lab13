@@ -8,7 +8,7 @@ import chisel3.experimental.BundleLiterals._
 import chiseltest.{WriteVcdAnnotation, VerilatorBackendAnnotation}
 
 class TestHw2Addition extends AnyFreeSpec with ChiselScalatestTester {
-  "SIMD Execution Unit should execute sADDI8S.vv instructions" in {
+  "SIMD Execution Unit should execute sADDI8I8S.vv instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -41,7 +41,7 @@ class TestHw2Addition extends AnyFreeSpec with ChiselScalatestTester {
     }
   }
 
-  "SIMD Execution Unit should execute sADDI16S.vv instructions" in {
+  "SIMD Execution Unit should execute sADDI16I16S.vv instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -74,7 +74,7 @@ class TestHw2Addition extends AnyFreeSpec with ChiselScalatestTester {
     }
   }
 
-  "SIMD Execution Unit should execute sADDI8S.vx instructions" in {
+  "SIMD Execution Unit should execute sADDI8I8S.vx instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -107,7 +107,7 @@ class TestHw2Addition extends AnyFreeSpec with ChiselScalatestTester {
     }
   }
 
-  "SIMD Execution Unit should execute sADDI16S.vx instructions" in {
+  "SIMD Execution Unit should execute sADDI16I16S.vx instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -142,7 +142,7 @@ class TestHw2Addition extends AnyFreeSpec with ChiselScalatestTester {
 }
 
 class TestHw2Substraction extends AnyFreeSpec with ChiselScalatestTester {
-  "SIMD Execution Unit should execute sSUBI8S.vv instructions" in {
+  "SIMD Execution Unit should execute sSUBI8I8S.vv instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -175,7 +175,7 @@ class TestHw2Substraction extends AnyFreeSpec with ChiselScalatestTester {
     }
   }
 
-  "SIMD Execution Unit should execute sSUBI16S.vv instructions" in {
+  "SIMD Execution Unit should execute sSUBI16I16S.vv instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -208,7 +208,7 @@ class TestHw2Substraction extends AnyFreeSpec with ChiselScalatestTester {
     }
   }
 
-  "SIMD Execution Unit should execute sSUBI8S.vx instructions" in {
+  "SIMD Execution Unit should execute sSUBI8I8S.vx instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -241,7 +241,7 @@ class TestHw2Substraction extends AnyFreeSpec with ChiselScalatestTester {
     }
   }
 
-  "SIMD Execution Unit should execute sSUBI16S.vx instructions" in {
+  "SIMD Execution Unit should execute sSUBI16I16S.vx instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -276,7 +276,7 @@ class TestHw2Substraction extends AnyFreeSpec with ChiselScalatestTester {
 }
 
 class TestHw2Multiplication extends AnyFreeSpec with ChiselScalatestTester {
-  "SIMD Execution Unit should execute sMULI8I16S.vv.L instructions" in {
+  "SIMD Execution Unit should execute sPMULI8I16S.vv.L instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -309,7 +309,7 @@ class TestHw2Multiplication extends AnyFreeSpec with ChiselScalatestTester {
     }
   }
 
-  "SIMD Execution Unit should execute sMULI8I16S.vv.H instructions" in {
+  "SIMD Execution Unit should execute sPMULI8I16S.vv.H instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -342,7 +342,7 @@ class TestHw2Multiplication extends AnyFreeSpec with ChiselScalatestTester {
     }
   }
 
-  "SIMD Execution Unit should execute sMULI8I16S.vx.L instructions" in {
+  "SIMD Execution Unit should execute sPMULI8I16S.vx.L instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -375,7 +375,7 @@ class TestHw2Multiplication extends AnyFreeSpec with ChiselScalatestTester {
     }
   }
 
-  "SIMD Execution Unit should execute sMULI8I16S.vx.H instructions" in {
+  "SIMD Execution Unit should execute sPMULI8I16S.vx.H instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -420,7 +420,7 @@ class TestHw2Quantization extends AnyFreeSpec with ChiselScalatestTester {
     return result.toByte
   }
 
-  "SIMD Execution Unit should execute sMULI8I8S.vv instructions" in {
+  "SIMD Execution Unit should execute sAMULI8I8S.vv.AQ instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -468,7 +468,7 @@ class TestHw2Quantization extends AnyFreeSpec with ChiselScalatestTester {
     }
   }
 
-  "SIMD Execution Unit should execute sMULI8I8S.vx instructions" in {
+  "SIMD Execution Unit should execute sAMULI8I8S.vx.AQ instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
@@ -516,7 +516,7 @@ class TestHw2Quantization extends AnyFreeSpec with ChiselScalatestTester {
     }
   }
 
-  "SIMD Execution Unit should execute sQNT.I.H2B instructions" in {
+  "SIMD Execution Unit should execute sQNTI16I8S.vv instructions" in {
     test(new simd.SIMDEngine()).withAnnotations(Seq(
       WriteVcdAnnotation,
       VerilatorBackendAnnotation
