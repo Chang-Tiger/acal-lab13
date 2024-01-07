@@ -413,9 +413,9 @@ class TestHw2Quantization extends AnyFreeSpec with ChiselScalatestTester {
   def quantize(value: Short, scaling: Int, zero: Int): Byte = {
     var result: Int = 0
     if (scaling >= 0) {
-      result = (value.toInt << scaling) + zero
+      result = (value.toInt >> scaling) + zero
     } else {
-      result = (value.toInt >> (scaling * (-1))) + zero
+      result = (value.toInt << (scaling * (-1))) + zero
     }
     return result.toByte
   }
