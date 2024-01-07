@@ -24,10 +24,10 @@ class Controller extends Module {
       funct,
       AddSubActivationOp.NONE,
       Seq(
-        "b0000000_000".U -> AddSubActivationOp.ADDI8S_VV,
-        "b0000000_001".U -> AddSubActivationOp.ADDI16S_VV,
-        "b0000001_000".U -> AddSubActivationOp.SUBI8S_VV,
-        "b0000001_001".U -> AddSubActivationOp.SUBI16S_VV
+        "b0000000_000".U -> AddSubActivationOp.ADDI8I8S_VV,
+        "b0000000_001".U -> AddSubActivationOp.ADDI16I16S_VV,
+        "b0000001_000".U -> AddSubActivationOp.SUBI8I8S_VV,
+        "b0000001_001".U -> AddSubActivationOp.SUBI16I16S_VV
       )
     )
 
@@ -36,12 +36,12 @@ class Controller extends Module {
       funct,
       MulOp.NONE,
       Seq(
-        "b0000010_000".U -> MulOp.MULI8I8S_VV,
-        "b0000010_100".U -> MulOp.MULI8I16S_VV_L,
+        "b0000010_000".U -> MulOp.AMULI8I8S_VV,
+        "b0000010_100".U -> MulOp.PMULI8I16S_VV_L,
         "b0000010_101".U -> Mux(
           io.rsMatch,
           MulOp.NONE,
-          MulOp.MULI8I16S_VV_H
+          MulOp.PMULI8I16S_VV_H
         )
       )
     )
@@ -51,16 +51,14 @@ class Controller extends Module {
       funct,
       false.B,
       Seq(
-        "b0000010_100".U -> true.B,
-        "b1000010_100".U -> true.B
+        "b0000010_100".U -> true.B
       )
     )
     io.wenRd := MuxLookup(
       funct,
       false.B,
       Seq(
-        "b0000010_100".U -> true.B,
-        "b1000010_100".U -> true.B
+        "b0000010_100".U -> true.B
       )
     )
   }.otherwise {

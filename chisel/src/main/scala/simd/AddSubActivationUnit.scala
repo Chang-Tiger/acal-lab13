@@ -5,9 +5,9 @@ import chisel3.util._
 import chisel3.experimental.ChiselEnum
 
 object AddSubActivationOp extends ChiselEnum {
-  val NONE                  = Value
-  val ADDI8S_VV, ADDI16S_VV = Value
-  val SUBI8S_VV, SUBI16S_VV = Value
+  val NONE                       = Value
+  val ADDI8I8S_VV, ADDI16I16S_VV = Value
+  val SUBI8I8S_VV, SUBI16I16S_VV = Value
 }
 
 class AddSubActivationUnit extends Module {
@@ -36,8 +36,8 @@ class AddSubActivationUnit extends Module {
       io.opSel.asUInt,
       DontCare,
       Seq(
-        AddSubActivationOp.ADDI8S_VV.asUInt -> (rs1ByteArray(i).asSInt + rs2ByteArray(i).asSInt).asUInt,
-        AddSubActivationOp.SUBI8S_VV.asUInt -> (rs1ByteArray(i).asSInt - rs2ByteArray(i).asSInt).asUInt
+        AddSubActivationOp.ADDI8I8S_VV.asUInt -> (rs1ByteArray(i).asSInt + rs2ByteArray(i).asSInt).asUInt,
+        AddSubActivationOp.SUBI8I8S_VV.asUInt -> (rs1ByteArray(i).asSInt - rs2ByteArray(i).asSInt).asUInt
       )
     )
   }
@@ -51,8 +51,8 @@ class AddSubActivationUnit extends Module {
       io.opSel.asUInt,
       DontCare,
       Seq(
-        AddSubActivationOp.ADDI16S_VV.asUInt -> (rs1HalfArray(i).asSInt + rs2HalfArray(i).asSInt).asUInt,
-        AddSubActivationOp.SUBI16S_VV.asUInt -> (rs1HalfArray(i).asSInt - rs2HalfArray(i).asSInt).asUInt
+        AddSubActivationOp.ADDI16I16S_VV.asUInt -> (rs1HalfArray(i).asSInt + rs2HalfArray(i).asSInt).asUInt,
+        AddSubActivationOp.SUBI16I16S_VV.asUInt -> (rs1HalfArray(i).asSInt - rs2HalfArray(i).asSInt).asUInt
       )
     )
   }
@@ -61,13 +61,13 @@ class AddSubActivationUnit extends Module {
   rdHalfConcat := Seq.range(1, -1, -1).map { i => rdHalfArray(i) }.reduce(_ ## _)
 
   when(io.opSel.isOneOf(
-    AddSubActivationOp.ADDI8S_VV,
-    AddSubActivationOp.SUBI8S_VV
+    AddSubActivationOp.ADDI8I8S_VV,
+    AddSubActivationOp.SUBI8I8S_VV
   )) {
     io.rd := rdByteConcat
   }.elsewhen(io.opSel.isOneOf(
-    AddSubActivationOp.ADDI16S_VV,
-    AddSubActivationOp.SUBI16S_VV
+    AddSubActivationOp.ADDI16I16S_VV,
+    AddSubActivationOp.SUBI16I16S_VV
   )) {
     io.rd := rdHalfConcat
   }.otherwise {

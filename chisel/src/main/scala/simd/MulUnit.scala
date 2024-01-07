@@ -5,8 +5,8 @@ import chisel3.util._
 import chisel3.experimental.ChiselEnum
 
 object MulOp extends ChiselEnum {
-  val NONE                                        = Value
-  val MULI8I8S_VV, MULI8I16S_VV_L, MULI8I16S_VV_H = Value
+  val NONE                                           = Value
+  val AMULI8I8S_VV, PMULI8I16S_VV_L, PMULI8I16S_VV_H = Value
 }
 
 class MulUnit extends Module {
@@ -30,7 +30,7 @@ class MulUnit extends Module {
     rs1ByteArray(i) := io.rs1(8 * i + 7, 8 * i)
     rs2ByteArray(i) := io.rs2(8 * i + 7, 8 * i)
 
-    when(io.opSel.isOneOf(MulOp.MULI8I8S_VV, MulOp.MULI8I16S_VV_L, MulOp.MULI8I16S_VV_H)) {
+    when(io.opSel.isOneOf(MulOp.AMULI8I8S_VV, MulOp.PMULI8I16S_VV_L, MulOp.PMULI8I16S_VV_H)) {
       rdHalfArray(i) := (rs1ByteArray(i).asSInt * rs2ByteArray(i).asSInt).asUInt
     }.otherwise {
       rdHalfArray(i) := DontCare
@@ -47,9 +47,9 @@ class MulUnit extends Module {
     io.opSel.asUInt,
     DontCare,
     Seq(
-      MulOp.MULI8I8S_VV.asUInt    -> rdMsbByteConcat,
-      MulOp.MULI8I16S_VV_L.asUInt -> rdLsbHalfConcat,
-      MulOp.MULI8I16S_VV_H.asUInt -> rdMsbHalfConcat
+      MulOp.AMULI8I8S_VV.asUInt    -> rdMsbByteConcat,
+      MulOp.PMULI8I16S_VV_L.asUInt -> rdLsbHalfConcat,
+      MulOp.PMULI8I16S_VV_H.asUInt -> rdMsbHalfConcat
     )
   )
 }
