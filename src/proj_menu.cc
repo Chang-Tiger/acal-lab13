@@ -22,7 +22,9 @@
 #include "cfu.h"
 #include "menu.h"
 
-#include "acal_lab/tb.h"
+#include "acal_lab/tb/includes/instruction.h"
+#include "acal_lab/tb/includes/models.h"
+#include "acal_lab/tb/includes/op.h"
 
 using namespace acal_lab;
 

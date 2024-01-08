@@ -1,4 +1,4 @@
-#include "acal_lab/includes/simd.h"
+#include "acal_lab/includes/instruction.h"
 
 // 8-2.1   : Integer Extension
 

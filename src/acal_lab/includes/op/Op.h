@@ -1,15 +1,16 @@
-#ifndef _OP_OP_H_
-#define _OP_OP_H_
+#ifndef _OP_OP_SIMD_H_
+#define _OP_OP_SIMD_H_
 
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "acal_lab/includes/info.h"
-#include "acal_lab/includes/simd.h"
+#include "acal_lab/includes/instruction.h"
 
 namespace acal_lab
 {
+
 class Operator
 {
   protected:
@@ -36,6 +37,7 @@ class Operator
             break;
         default:
             execFunction = &Operator::exec;
+            break;
         }
     }
     void execute()
@@ -51,4 +53,4 @@ class Operator
 
 }; // namespace acal_lab
 
-#endif // _OP_GEMM_H_
+#endif // _OP_SIMD_GEMM_H_

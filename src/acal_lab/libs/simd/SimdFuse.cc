@@ -1,4 +1,4 @@
-#include "acal_lab/includes/simd/SimdFuse.h"
+#include "acal_lab/includes/instruction/SimdFuse.h"
 
 // 8-2.1-3.3 : Signed Integer Multiplication : sPMULI8I16S_vv
 inline void acal_lab::sPMULI8I16S_vv(int16_t c[4], int8_t a[4], int8_t b[4])
