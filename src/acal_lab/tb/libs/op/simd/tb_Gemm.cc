@@ -94,13 +94,13 @@ bool acal_lab::tb::tb_Gemm(testType type)
     tensorInfo gemmWgt = {.N = 1, .C = 1, .H = GEMM_dimK, .W = GEMM_dimN, .data = wgt};
     tensorInfo gemmBias = {.N = 1, .C = 1, .H = GEMM_dimM, .W = GEMM_dimN, .data = bias};
     quantiInfo qInfo = {.scaling_factor = 0, .zero_point = 0};
-    gemmInfo gemmInfo = {.weight = gemmWgt, .bias = gemmBias};
+    gemmInfo gInfo = {.weight = gemmWgt, .bias = gemmBias};
 
     if (type == acal_lab::tb::testType::HW)
-        return acal_lab::tb::tb_GemmPerOperationrNaiveQuant(&data1Test, &data1, &data0, &gemmInfo, &qInfo) &
-               acal_lab::tb::tb_GemmPerLayerNaiveQuant(&data1Test, &data1, &data0, &gemmInfo, &qInfo) &
-               acal_lab::tb::tb_GemmPerOperationAdvanceQuant(&data1Test, &data1, &data0, &gemmInfo, &qInfo) &
-               acal_lab::tb::tb_GemmPerLayerAdvanceQuant(&data1Test, &data1, &data0, &gemmInfo, &qInfo);
+        return acal_lab::tb::tb_GemmPerOperationrNaiveQuant(&data1Test, &data1, &data0, &gInfo, &qInfo) &
+               acal_lab::tb::tb_GemmPerLayerNaiveQuant(&data1Test, &data1, &data0, &gInfo, &qInfo) &
+               acal_lab::tb::tb_GemmPerOperationAdvanceQuant(&data1Test, &data1, &data0, &gInfo, &qInfo) &
+               acal_lab::tb::tb_GemmPerLayerAdvanceQuant(&data1Test, &data1, &data0, &gInfo, &qInfo);
     else
-        return acal_lab::tb::tb_GemmPerOperationrNaiveQuant(&data1Test, &data1, &data0, &gemmInfo, &qInfo);
+        return acal_lab::tb::tb_GemmPerOperationrNaiveQuant(&data1Test, &data1, &data0, &gInfo, &qInfo);
 }
