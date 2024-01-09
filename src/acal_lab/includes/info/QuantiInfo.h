@@ -7,7 +7,6 @@
 
 namespace acal_lab
 {
-
 typedef enum QauntiType
 {
     PER_LAYER_NAIVE_QUANTI,
@@ -22,6 +21,6 @@ typedef struct QuantiInfo
     int8_t scaling_factor;
     int8_t zero_point;
 } quantiInfo;
-}; // namespace acal_lab
+} // namespace acal_lab
 
 #endif // _INFO_QUANTI_INFO_H_

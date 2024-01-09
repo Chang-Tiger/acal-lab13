@@ -2,36 +2,6 @@
 
 void acal_lab::simd::Gemm::execPerLayerNaiveQuant()
 {
-    int index_A, index_B, index_C;
-    int8_t temp_A[4] = {0}, temp_B[4] = {0};
-    int16_t temp_C[4] = {0};
-
-    for (int m = 0; m < input->H; m++)
-    {
-        index_A = m * input->W; // M * K
-        index_C = m * input->W; // M * N
-        for (int k = 0; k < input->W; k++)
-        {
-            index_B = k * info->weight.W; // K * N
-            for (int n = 0; n < info->weight.W; n += 4)
-            {
-                *(int32_t *)temp_A = (int32_t)0x01010101 * (int32_t)input->data[index_A + k];
-                *(int32_t *)temp_B = *(int32_t *)&(info->weight.data)[index_B + n];
-                int output_index = index_C + n;
-                // BUG: use sPMULI8I16S_vv(temp_C, temp_A, temp_B) undefined reference occur
-                sPMULI8I16S_vv_L(temp_C, temp_A, temp_B);
-                sPMULI8I16S_vv_H(temp_C + 2, temp_A, temp_B);
-                sADDI16I16S_vv((int16_t *)&(output->data_16[output_index]), (int16_t *)&(output->data_16[output_index]),
-                               (int16_t *)(temp_C));
-                output_index = index_C + 2;
-                sADDI16I16S_vv((int16_t *)&(output->data_16[output_index]), (int16_t *)&(output->data_16[output_index]),
-                               (int16_t *)(temp_C + 2));
-            }
-        }
-        for (int n = 0; n < info->weight.W; n += 2)
-            sADDI16I16S_vv((int16_t *)&(output->data_16[index_C + n]), (int16_t *)&(output->data_16[index_C + n]),
-                           (int16_t *)&(info->bias.data_16[index_C + n]));
-    }
 }
 void acal_lab::simd::Gemm::execPerOperationNaiveQuant()
 {
@@ -68,10 +38,26 @@ void acal_lab::simd::Gemm::execPerOperationNaiveQuant()
 
 void acal_lab::simd::Gemm::execPerLayerAdvanceQuant()
 {
-    sQNT_INFO(qInfo->scaling_factor, qInfo->zero_point);
+    /********************************************************************
+     * TODO:                                                            *
+     * For Homework 8.4, your task is to implement GEMM with per Layer  *
+     * `Advance Quantization`. This involves using the instruction      *
+     * `sPMULI8I16S(.vv/.vx)` to generate int16 output. However, the    *
+     * int16 output needs to be converted to int8 and then forwarded    *
+     * to the next Operator. To achieve this, utilize `sQNTI16I8S.vv.AQ`*
+     * for the conversion.                                              *
+     *******************************************************************/
 }
 
 void acal_lab::simd::Gemm::execPerOperationAdvanceQuant()
 {
-    sQNT_INFO(qInfo->scaling_factor, qInfo->zero_point);
+    /********************************************************************
+     * TODO:                                                            *
+     * For Homework 8.4, your task is to implement GEMM with per Layer  *
+     * `Advance Quantization`. This involves using the instruction      *
+     * `sPMULI8I16S(.vv/.vx)` to generate int16 output. However, the    *
+     * int16 output needs to be converted to int8 and then forwarded    *
+     * to the next Operator. To achieve this, utilize `sQNTI16I8S.vv.AQ`*
+     * for the conversion.                                              *
+     *******************************************************************/
 }

@@ -10,6 +10,10 @@ namespace acal_lab
 namespace tb
 {
 
+#define RELU_dimC 8
+#define RELU_dimH 8
+#define RELU_dimW 8
+
 bool tb_ReLU();
 
 } // namespace tb

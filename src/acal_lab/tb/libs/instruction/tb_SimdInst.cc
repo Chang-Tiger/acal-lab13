@@ -362,7 +362,7 @@ bool acal_lab::tb::tb_sAMULI8I8S_vv_AQ()
         // ScalingFactor =  0 ~ 8
         sc = rand() % 8;
         // ZeroPoint = 0 ~ 127
-        zpt = rand() % 128 - 128;
+        zpt = rand() % 128;
         randinit_i8i8_vv(rs1, rs2, rd, rd_tb);
         i8i8_alu_vv(AMULAQ, rd_tb, rs1, rs2, sc, zpt);
         sQNT_INFO(sc, zpt);
@@ -406,7 +406,7 @@ bool acal_lab::tb::tb_sAMULI8I8S_vx_AQ()
         // ScalingFactor =  0 ~ 8
         sc = rand() % 8;
         // ZeroPoint = 0 ~ 127
-        zpt = rand() % 128 - 128;
+        zpt = rand() % 128;
         randinit_i8i8_vx(rs1, &rs2, rd, rd_tb);
         i8i8_alu_vx(AMULNQ, rd_tb, rs1, rs2, sc, zpt);
         sQNT_INFO(sc, zpt);

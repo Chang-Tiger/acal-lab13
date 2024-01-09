@@ -1,5 +1,5 @@
-#ifndef __OP_SIMD_MXPL_H__
-#define __OP_SIMD_MXPL_H__
+#ifndef __OP_SCALAR_MXPL_H__
+#define __OP_SCALAR_MXPL_H__
 
 #include "acal_lab/includes/op/Op.h"
 
@@ -29,4 +29,4 @@ class MxPl : public Operator
 } //  namespace scalar
 } // namespace acal_lab
 
-#endif // __OP_SIMD_MXPL_H__
+#endif // __OP_SCALAR_MXPL_H__

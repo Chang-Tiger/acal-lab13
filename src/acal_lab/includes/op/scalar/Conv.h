@@ -1,5 +1,5 @@
-#ifndef __OP_SIMD_CONV_H__
-#define __OP_SIMD_CONV_H__
+#ifndef __OP_SCALAR_CONV_H__
+#define __OP_SCALAR_CONV_H__
 #include "acal_lab/includes/op/Op.h"
 
 #include <stdint.h>
@@ -32,4 +32,4 @@ class Conv : public Operator
 } // namespace scalar
 } // namespace acal_lab
 
-#endif // __OP_SIMD_CONV_H__
+#endif // __OP_SCALAR_CONV_H__

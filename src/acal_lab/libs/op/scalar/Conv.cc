@@ -10,6 +10,7 @@ void acal_lab::scalar::Conv::execPerLayerAdvanceQuant()
 
 void acal_lab::scalar::Conv::execPerOperationNaiveQuant()
 {
+    // Lab todo
 }
 
 void acal_lab::scalar::Conv::execPerOperationAdvanceQuant()

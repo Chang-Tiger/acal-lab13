@@ -17,7 +17,7 @@ void acal_lab::tb::i8i8_alu_vv(operation op, int8_t rd[4], int8_t rs1[4], int8_t
             rd[idx] = (int8_t)(((int16_t)rs1[idx] * (int16_t)rs2[idx]) >> 8);
             break;
         case AMULAQ:
-            rd[idx] = (int8_t)((((int16_t)rs1[idx] * (int16_t)rs2[idx]) - zpt) >> sc);
+            rd[idx] = (int8_t)((((int16_t)rs1[idx] * (int16_t)rs2[idx]) >> sc) + zpt);
             break;
         default:
             break;
@@ -43,7 +43,7 @@ void acal_lab::tb::i8i8_alu_vx(operation op, int8_t rd[4], int8_t rs1[4], int32_
             rd[idx] = (int8_t)(((int16_t)rs1[idx] * (int16_t)rs2) >> 8);
             break;
         case AMULAQ:
-            rd[idx] = (int8_t)((((int16_t)rs1[idx] * (int16_t)rs2) - zpt) >> sc);
+            rd[idx] = (int8_t)((((int16_t)rs1[idx] * (int16_t)rs2) >> sc) + zpt);
             break;
         default:
             break;

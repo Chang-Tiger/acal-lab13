@@ -19,7 +19,8 @@ typedef enum TestBench
     PICTURE_1
 } testbench;
 
-void tb_AlexNet(testbench);
+bool tb_AlexNet(testbench);
+bool tb_check(tensorInfo output, testbench pic);
 } // namespace tb
 } // namespace acal_lab
 

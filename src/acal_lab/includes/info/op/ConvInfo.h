@@ -15,7 +15,6 @@ typedef struct ConvInfo
     int padding;
     tensorInfo kernel;
     tensorInfo bias;
-    tensorInfo extraBuffer;
 } convInfo;
 } // namespace acal_lab
 

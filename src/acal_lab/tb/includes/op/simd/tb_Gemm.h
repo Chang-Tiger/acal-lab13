@@ -13,13 +13,15 @@ namespace acal_lab
 {
 namespace tb
 {
-
 bool tb_Gemm(testType);
-bool tb_GemmPerOperationrNaiveQuant(int8_t *, int8_t *, int8_t *, int8_t *, int8_t *);
-bool tb_GemmPerOperationAdvanceQuant(int8_t *, int8_t *, int8_t *, int8_t *, int8_t *);
-bool tb_GemmPerLayerNaiveQuant(int8_t *, int8_t *, int16_t *, int16_t *, int16_t *);
-bool tb_GemmPerLayerAdvanceQuant(int8_t *, int8_t *, int16_t *, int16_t *, int16_t *);
-
+bool tb_GemmPerOperationrNaiveQuant(tensorInfo *optTest, tensorInfo *opt, tensorInfo *ipt, gemmInfo *opInfo,
+                                    quantiInfo *quantInfo);
+bool tb_GemmPerOperationAdvanceQuant(tensorInfo *optTest, tensorInfo *opt, tensorInfo *ipt, gemmInfo *opInfo,
+                                     quantiInfo *quantInfo);
+bool tb_GemmPerLayerNaiveQuant(tensorInfo *optTest, tensorInfo *opt, tensorInfo *ipt, gemmInfo *opInfo,
+                               quantiInfo *quantInfo);
+bool tb_GemmPerLayerAdvanceQuant(tensorInfo *optTest, tensorInfo *opt, tensorInfo *ipt, gemmInfo *opInfo,
+                                 quantiInfo *quantInfo);
 } // namespace tb
 } // namespace acal_lab
 

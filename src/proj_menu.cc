@@ -106,12 +106,31 @@ void do_OP_with_SIMD_hw(void)
 
 void do_ALEXNET_INFERENCE_DATA0(void)
 {
-    acal_lab::tb::tb_AlexNet(acal_lab::tb::testbench::PICTURE_0);
+    printf("=====================   AlexNet with SIMD   =================\n");
+    printf("data0 in AlexNet (Homework Edition)                    | %4s\n",
+           acal_lab::tb::tb_AlexNet(acal_lab::tb::testbench::PICTURE_0) ? "Pass" : "Fail");
+    printf("-------------------------------------------------------------\n");
 }
 
 void do_ALEXNET_INFERENCE_DATA1(void)
 {
-    acal_lab::tb::tb_AlexNet(acal_lab::tb::testbench::PICTURE_1);
+    printf("=====================   AlexNet with SIMD   =================\n");
+    printf("data1 in AlexNet (Homework Edition)                    | %4s\n",
+           acal_lab::tb::tb_AlexNet(acal_lab::tb::testbench::PICTURE_1) ? "Pass" : "Fail");
+    printf("-------------------------------------------------------------\n");
+}
+void do_ALL()
+{
+
+    do_SIMD_TB_hw();
+    printf("=============================================================\n");
+    printf("=============================================================\n");
+    do_GEMM_with_SIMD_hw();
+    do_CONV_with_SIMD_hw();
+    do_MXPL_with_SIMD_hw();
+    do_RELU_with_SIMD_hw();
+    do_ALEXNET_INFERENCE_DATA0();
+    do_ALEXNET_INFERENCE_DATA1();
 }
 
 struct Menu MENU = {
@@ -128,6 +147,7 @@ struct Menu MENU = {
         MENU_ITEM('f', "test ALL  Operator    - with SIMD Extension (Homework Edition)", do_OP_with_SIMD_hw),
         MENU_ITEM('g', "test AlexNet (data0)  - with SIMD Extension (Homework Edition)", do_ALEXNET_INFERENCE_DATA0),
         MENU_ITEM('h', "test AlexNet (daat1)  - with SIMD Extension (Homework Edition)", do_ALEXNET_INFERENCE_DATA1),
+        MENU_ITEM('i', "test All", do_ALL),
         MENU_END,
     },
 };

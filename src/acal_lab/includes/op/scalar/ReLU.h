@@ -1,5 +1,5 @@
-#ifndef _OP_SIMD_RELU_H_
-#define _OP_SIMD_RELU_H_
+#ifndef _OP_SCALAR_RELU_H_
+#define _OP_SCALAR_RELU_H_
 
 #include "acal_lab/includes/op/Op.h"
 
@@ -25,4 +25,4 @@ class ReLU : public Operator
 } // namespace scalar
 } // namespace acal_lab
 
-#endif // _OP_SIMD_RELU_H_
+#endif // _OP_SCALAR_RELU_H_

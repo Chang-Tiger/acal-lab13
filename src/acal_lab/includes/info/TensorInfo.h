@@ -9,12 +9,12 @@ namespace acal_lab
 {
 typedef struct TensorInfo
 {
+    int N;
     int C;
     int H;
     int W;
     int8_t *data;
-    int16_t *data_16;
 } tensorInfo;
-}; // namespace acal_lab
+} // namespace acal_lab
 
 #endif // _INCLUDES_TENSOR_INFO_H

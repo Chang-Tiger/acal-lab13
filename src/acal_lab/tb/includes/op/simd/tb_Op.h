@@ -22,9 +22,7 @@ typedef enum TestType
 } testType;
 
 bool compare8(tensorInfo *, tensorInfo *);
-bool compare16(tensorInfo *, tensorInfo *);
 void randomInit8(tensorInfo *);
-void randomInit16(tensorInfo *);
 } // namespace tb
 } // namespace acal_lab
 
