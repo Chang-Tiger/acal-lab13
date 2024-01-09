@@ -40,9 +40,13 @@ class Operator
             break;
         }
     }
+    virtual inline void preOp() {};
+    virtual inline void postOp() {};
     void execute()
     {
+        preOp();
         (this->*execFunction)();
+        postOp();
     };
     virtual void execPerLayerNaiveQuant() {};
     virtual void execPerLayerAdvanceQuant() {};
