@@ -1,8 +1,8 @@
 #ifndef __TB_OP_TB_GEMM_H__
 #define __TB_OP_TB_GEMM_H__
 
-#include "acal_lab/includes/op/simd/Gemm.h"
 #include "acal_lab/includes/op/scalar/Gemm.h"
+#include "acal_lab/includes/op/simd/Gemm.h"
 #include "tb_Op.h"
 
 #define GEMM_dimM 8

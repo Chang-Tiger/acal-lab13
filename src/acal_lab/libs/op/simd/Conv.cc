@@ -39,7 +39,7 @@ void acal_lab::simd::Conv::execPerOperationAdvanceQuant()
     /********************************************************
      * TODO:                                                *
      * For Homework 8.3, implement CONV with per Operation  *
-     * `Advance Quantization`. Update instruction in the    *
+     * Advance Quantization. Update instruction in the      *
      * `void acal_lab::Conv::execPerOperationNaiveQuant()`  *
      * function from `sAMULI8I8S(.vv/.vx).NQ` to            *
      * `sAMULI8I8S(.vv/.vx).AQ`.                            *

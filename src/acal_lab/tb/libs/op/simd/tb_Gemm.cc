@@ -2,7 +2,6 @@
 
 #define TB_SIZE 100
 
-
 bool acal_lab::tb::tb_GemmPerOperationrNaiveQuant(int8_t *ipt, int8_t *weight, int8_t *bias, int8_t *gemm_8,
                                                   int8_t *gemmTest_8)
 {

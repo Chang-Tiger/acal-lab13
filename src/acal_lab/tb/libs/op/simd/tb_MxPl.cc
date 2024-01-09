@@ -2,8 +2,6 @@
 
 #define TB_SIZE 100
 
-
-
 bool acal_lab::tb::tb_MxPl()
 {
     int correct_cnt = 0;

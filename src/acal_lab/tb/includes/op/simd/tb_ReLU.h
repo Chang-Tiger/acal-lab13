@@ -1,8 +1,8 @@
 #ifndef _TB_OP_RELU_H_
 #define _TB_OP_RELU_H_
 
-#include "acal_lab/includes/op/simd/ReLU.h"
 #include "acal_lab/includes/op/scalar/ReLU.h"
+#include "acal_lab/includes/op/simd/ReLU.h"
 #include "tb_Op.h"
 
 namespace acal_lab
