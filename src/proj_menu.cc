@@ -74,6 +74,7 @@ void do_GEMM_with_SIMD_hw(void)
 void do_CONV_with_SIMD_hw(void)
 {
     printf("===================   CONV with SIMD   ======================\n");
+    printf("... It may take some time\n");
     printf("-------------------------------------------------------------\n"
            "`CONV` with SIMD (Homework Edition)                    | %4s\n",
            tb::tb_Conv(tb::testType::HW) ? "Pass" : "Fail");
@@ -140,8 +141,8 @@ struct Menu MENU = {
         MENU_ITEM('0', "test SIMD instruction - Integer Extension (Lab Edition)", do_SIMD_TB_lab),
         MENU_ITEM('1', "test SIMD instruction - Integer Extension (Homework Edidtion)", do_SIMD_TB_hw),
         MENU_ITEM('a', "test GEMM Operator    - with SIMD Extension (Lab Edition)", do_GEMM_with_SIMD_lab),
-        MENU_ITEM('b', "test GEMM Operator    - with SIMD Extension (Homework Edidtion)", do_GEMM_with_SIMD_hw),
-        MENU_ITEM('c', "test CONV Operator    - with SIMD Extension (Homework Edidtion)", do_CONV_with_SIMD_hw),
+        MENU_ITEM('b', "test GEMM Operator    - with SIMD Extension (Homework Edition)", do_GEMM_with_SIMD_hw),
+        MENU_ITEM('c', "test CONV Operator    - with SIMD Extension (Homework Edition)", do_CONV_with_SIMD_hw),
         MENU_ITEM('d', "test MXPL Operator    - with SIMD Extension (Homework Edition)", do_MXPL_with_SIMD_hw),
         MENU_ITEM('e', "test RELU Operator    - with SIMD Extension (Homework Edition)", do_RELU_with_SIMD_hw),
         MENU_ITEM('f', "test ALL  Operator    - with SIMD Extension (Homework Edition)", do_OP_with_SIMD_hw),
