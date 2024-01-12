@@ -24,8 +24,10 @@ void acal_lab::scalar::Conv::execPerOperationNaiveQuant()
                     {
                         for (int kw = 0; kw < info->kernel.W; kw++)
                         {
-                            int16_t temp = (int16_t)input->data[c * input->H * input->W + (oh + kh) * input->W + (ow + kw)] *
-                                (int16_t)info->kernel.data[((n * info->kernel.C + c) * info->kernel.H + kh) * info->kernel.W + kw];
+                            int16_t temp =
+                                (int16_t)input->data[c * input->H * input->W + (oh + kh) * input->W + (ow + kw)] *
+                                (int16_t)info->kernel
+                                    .data[((n * info->kernel.C + c) * info->kernel.H + kh) * info->kernel.W + kw];
                             output->data[n * output->H * output->W + oh * output->W + ow] += (int8_t)(temp >> 8);
                         }
                     }
