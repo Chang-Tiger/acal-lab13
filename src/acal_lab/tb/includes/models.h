@@ -1,6 +1,6 @@
-#ifndef _TB_MODELS_H_
-#define _TB_MODELS_H_
+#ifndef SRC_ACAL_LAB_TB_INCLUDES_MODELS_H_
+#define SRC_ACAL_LAB_TB_INCLUDES_MODELS_H_
 
 #include "models/AlexNet.h"
 
-#endif // _TB_OP_H_a
+#endif  // SRC_ACAL_LAB_TB_INCLUDES_MODELS_H_

@@ -1,20 +1,20 @@
-#ifndef __INFO_OP_MXPL_H__
-#define __INFO_OP_MXPL_H__
+#ifndef SRC_ACAL_LAB_INCLUDES_INFO_OP_MXPLINFO_H_
+#define SRC_ACAL_LAB_INCLUDES_INFO_OP_MXPLINFO_H_
 
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-namespace acal_lab
-{
+#include "acal_lab/includes/info/TensorInfo.h"
 
-typedef struct MaxPoolInfo
-{
-    int kernelSize;
-    int stride;
-    int padding;
+namespace acal_lab {
+
+typedef struct MaxPoolInfo {
+	int kernelSize;
+	int stride;
+	int padding;
 } mxPlInfo;
 
-} // namespace acal_lab
+}  // namespace acal_lab
 
-#endif // __INFO_OP_MXPL_H__
+#endif  // SRC_ACAL_LAB_INCLUDES_INFO_OP_MXPLINFO_H_

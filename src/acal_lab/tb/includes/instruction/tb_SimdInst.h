@@ -1,5 +1,5 @@
-#ifndef _TB_SIMD_INST_H_
-#define _TB_SIMD_INST_H_
+#ifndef SRC_ACAL_LAB_TB_INCLUDES_INSTRUCTION_TB_SIMDINST_H_
+#define SRC_ACAL_LAB_TB_INCLUDES_INSTRUCTION_TB_SIMDINST_H_
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -14,10 +14,8 @@
 #include "tb_SimdUtil.h"
 #include "tb_SoftwareALU.h"
 
-namespace acal_lab
-{
-namespace tb
-{
+namespace acal_lab {
+namespace tb {
 // 8-2.1   : Integer Extension
 // 8-2.1-1 : Signed Integer Addition
 bool tb_sADDI8I8S_vv();
@@ -55,6 +53,8 @@ bool tb_sAMULI8I8S_vx_NQ();
 bool tb_sAMULI8I8S_vx_AQ();
 bool tb_sAMULI8I8S_vx();
 bool tb_sAMULI8I8S();
-}; // namespace tb
-}; // namespace acal_lab
-#endif // _TB_SIMD_INST_H_
+
+}  // namespace tb
+}  // namespace acal_lab
+
+#endif  // SRC_ACAL_LAB_TB_INCLUDES_INSTRUCTION_TB_SIMDINST_H_

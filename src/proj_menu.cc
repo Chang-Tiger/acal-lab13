@@ -19,119 +19,110 @@
 
 #include <stdio.h>
 
-#include "cfu.h"
-#include "menu.h"
-
 #include "acal_lab/tb/includes/instruction.h"
 #include "acal_lab/tb/includes/models.h"
 #include "acal_lab/tb/includes/op.h"
+#include "cfu.h"
+#include "menu.h"
 
 using namespace acal_lab;
 
-namespace
-{
+namespace {
 
-void do_SIMD_TB_lab(void)
-{
-    printf("=============== SIMD Vector-Vector ================\n");
-    bool vvTB = tb::tb_sADDS_vv() & tb::tb_sSUBS_vv() & tb::tb_sPMULI8I16S_vv() & tb::tb_sAMULI8I8S_vv_NQ();
-    printf("---------------------------------------------------\n");
-    printf("SIMD Integer Extension : (Lab Edition)       | %4s\n", vvTB ? "Pass" : "Fail");
-    printf("===================================================\n");
+void do_SIMD_TB_lab(void) {
+	printf("=============== SIMD Vector-Vector ================\n");
+	bool vvTB = tb::tb_sADDS_vv() & tb::tb_sSUBS_vv() & tb::tb_sPMULI8I16S_vv() & tb::tb_sAMULI8I8S_vv_NQ();
+	printf("---------------------------------------------------\n");
+	printf("SIMD Integer Extension : (Lab Edition)       | %4s\n", vvTB ? "Pass" : "Fail");
+	printf("===================================================\n");
 }
 
-void do_SIMD_TB_hw(void)
-{
-    printf("=============== SIMD Vector-Vector ================\n");
-    bool vvTB = tb::tb_sADDS_vv() & tb::tb_sSUBS_vv() & tb::tb_sPMULI8I16S_vv() & tb::tb_sAMULI8I8S_vv();
-    printf("---------------------------------------------------\n");
-    printf("=> SUMMARY | SIMD Vector-Vector :            | %4s\n", vvTB ? "Pass" : "Fail");
-    printf("=============== SIMD Vector-Scalar ================\n");
-    bool vxTB = tb::tb_sADDS_vx() & tb::tb_sSUBS_vx() & tb::tb_sPMULI8I16S_vx() & tb::tb_sAMULI8I8S_vx();
-    printf("---------------------------------------------------\n");
-    printf("=> SUMMARY | SIMD Vector-Scalar :            | %4s\n", vxTB ? "Pass" : "Fail");
-    printf("---------------------------------------------------\n");
-    printf("SIMD Integer Extension : (Homework Edition)  | %4s\n", vvTB & vxTB ? "Pass" : "Fail");
-    printf("===================================================\n");
+void do_SIMD_TB_hw(void) {
+	printf("=============== SIMD Vector-Vector ================\n");
+	bool vvTB = tb::tb_sADDS_vv() & tb::tb_sSUBS_vv() & tb::tb_sPMULI8I16S_vv() & tb::tb_sAMULI8I8S_vv();
+	printf("---------------------------------------------------\n");
+	printf("=> SUMMARY | SIMD Vector-Vector :            | %4s\n", vvTB ? "Pass" : "Fail");
+	printf("=============== SIMD Vector-Scalar ================\n");
+	bool vxTB = tb::tb_sADDS_vx() & tb::tb_sSUBS_vx() & tb::tb_sPMULI8I16S_vx() & tb::tb_sAMULI8I8S_vx();
+	printf("---------------------------------------------------\n");
+	printf("=> SUMMARY | SIMD Vector-Scalar :            | %4s\n", vxTB ? "Pass" : "Fail");
+	printf("---------------------------------------------------\n");
+	printf("SIMD Integer Extension : (Homework Edition)  | %4s\n", vvTB & vxTB ? "Pass" : "Fail");
+	printf("===================================================\n");
 }
 
-void do_GEMM_with_SIMD_lab(void)
-{
-    printf("===================   GEMM with SIMD   ======================\n");
-    printf("-------------------------------------------------------------\n"
-           "`GEMM` with SIMD (LAB Edition)                         | %4s\n",
-           tb::tb_Gemm(tb::testType::LAB) ? "Pass" : "Fail");
+void do_GEMM_with_SIMD_lab(void) {
+	printf("===================   GEMM with SIMD   ======================\n");
+	printf(
+	    "-------------------------------------------------------------\n"
+	    "`GEMM` with SIMD (LAB Edition)                         | %4s\n",
+	    tb::tb_Gemm(tb::testType::LAB) ? "Pass" : "Fail");
 }
 
-void do_GEMM_with_SIMD_hw(void)
-{
-    printf("===================   GEMM with SIMD   ======================\n");
-    printf("-------------------------------------------------------------\n"
-           "`GEMM` with SIMD (Homework Edition)                    | %4s\n",
-           tb::tb_Gemm(tb::testType::HW) ? "Pass" : "Fail");
+void do_GEMM_with_SIMD_hw(void) {
+	printf("===================   GEMM with SIMD   ======================\n");
+	printf(
+	    "-------------------------------------------------------------\n"
+	    "`GEMM` with SIMD (Homework Edition)                    | %4s\n",
+	    tb::tb_Gemm(tb::testType::HW) ? "Pass" : "Fail");
 }
 
-void do_CONV_with_SIMD_hw(void)
-{
-    printf("===================   CONV with SIMD   ======================\n");
-    printf("... It may take some time\n");
-    printf("-------------------------------------------------------------\n"
-           "`CONV` with SIMD (Homework Edition)                    | %4s\n",
-           tb::tb_Conv(tb::testType::HW) ? "Pass" : "Fail");
+void do_CONV_with_SIMD_hw(void) {
+	printf("===================   CONV with SIMD   ======================\n");
+	printf("... It may take some time\n");
+	printf(
+	    "-------------------------------------------------------------\n"
+	    "`CONV` with SIMD (Homework Edition)                    | %4s\n",
+	    tb::tb_Conv(tb::testType::HW) ? "Pass" : "Fail");
 }
 
-void do_MXPL_with_SIMD_hw(void)
-{
-    printf("===================   MXPL with SIMD   ======================\n");
-    printf("-------------------------------------------------------------\n"
-           "`MXPL` with SIMD (Homework Edition)                    | %4s\n",
-           tb::tb_MxPl() ? "Pass" : "Fail");
+void do_MXPL_with_SIMD_hw(void) {
+	printf("===================   MXPL with SIMD   ======================\n");
+	printf(
+	    "-------------------------------------------------------------\n"
+	    "`MXPL` with SIMD (Homework Edition)                    | %4s\n",
+	    tb::tb_MxPl() ? "Pass" : "Fail");
 }
 
-void do_RELU_with_SIMD_hw(void)
-{
-    printf("===================   RELU with SIMD   ======================\n");
-    printf("-------------------------------------------------------------\n"
-           "`RELU` with SIMD (Homework Edition)                    | %4s\n",
-           tb::tb_ReLU() ? "Pass" : "Fail");
+void do_RELU_with_SIMD_hw(void) {
+	printf("===================   RELU with SIMD   ======================\n");
+	printf(
+	    "-------------------------------------------------------------\n"
+	    "`RELU` with SIMD (Homework Edition)                    | %4s\n",
+	    tb::tb_ReLU() ? "Pass" : "Fail");
 }
 
-void do_OP_with_SIMD_hw(void)
-{
-    do_GEMM_with_SIMD_hw();
-    do_CONV_with_SIMD_hw();
-    do_MXPL_with_SIMD_hw();
-    do_RELU_with_SIMD_hw();
-    printf("=============================================================\n");
+void do_OP_with_SIMD_hw(void) {
+	do_GEMM_with_SIMD_hw();
+	do_CONV_with_SIMD_hw();
+	do_MXPL_with_SIMD_hw();
+	do_RELU_with_SIMD_hw();
+	printf("=============================================================\n");
 }
 
-void do_ALEXNET_INFERENCE_DATA0(void)
-{
-    printf("=====================   AlexNet with SIMD   =================\n");
-    printf("data0 in AlexNet (Homework Edition)                    | %4s\n",
-           acal_lab::tb::tb_AlexNet(acal_lab::tb::testbench::PICTURE_0) ? "Pass" : "Fail");
-    printf("-------------------------------------------------------------\n");
+void do_ALEXNET_INFERENCE_DATA0(void) {
+	printf("=====================   AlexNet with SIMD   =================\n");
+	printf("data0 in AlexNet (Homework Edition)                    | %4s\n",
+	       tb::tb_AlexNet(tb::testbench::PICTURE_0) ? "Pass" : "Fail");
+	printf("-------------------------------------------------------------\n");
 }
 
-void do_ALEXNET_INFERENCE_DATA1(void)
-{
-    printf("=====================   AlexNet with SIMD   =================\n");
-    printf("data1 in AlexNet (Homework Edition)                    | %4s\n",
-           acal_lab::tb::tb_AlexNet(acal_lab::tb::testbench::PICTURE_1) ? "Pass" : "Fail");
-    printf("-------------------------------------------------------------\n");
+void do_ALEXNET_INFERENCE_DATA1(void) {
+	printf("=====================   AlexNet with SIMD   =================\n");
+	printf("data1 in AlexNet (Homework Edition)                    | %4s\n",
+	       tb::tb_AlexNet(tb::testbench::PICTURE_1) ? "Pass" : "Fail");
+	printf("-------------------------------------------------------------\n");
 }
-void do_ALL()
-{
-
-    do_SIMD_TB_hw();
-    printf("=============================================================\n");
-    printf("=============================================================\n");
-    do_GEMM_with_SIMD_hw();
-    do_CONV_with_SIMD_hw();
-    do_MXPL_with_SIMD_hw();
-    do_RELU_with_SIMD_hw();
-    do_ALEXNET_INFERENCE_DATA0();
-    do_ALEXNET_INFERENCE_DATA1();
+void do_ALL() {
+	do_SIMD_TB_hw();
+	printf("=============================================================\n");
+	printf("=============================================================\n");
+	do_GEMM_with_SIMD_hw();
+	do_CONV_with_SIMD_hw();
+	do_MXPL_with_SIMD_hw();
+	do_RELU_with_SIMD_hw();
+	do_ALEXNET_INFERENCE_DATA0();
+	do_ALEXNET_INFERENCE_DATA1();
 }
 
 struct Menu MENU = {
@@ -153,9 +144,6 @@ struct Menu MENU = {
     },
 };
 
-}; // anonymous namespace
+};  // anonymous namespace
 
-extern "C" void do_proj_menu()
-{
-    menu_run(&MENU);
-}
+extern "C" void do_proj_menu() { menu_run(&MENU); }

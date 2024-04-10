@@ -1,7 +1,7 @@
-#ifndef _INSTRUCTION_H_
-#define _INSTRUCTION_H_
+#ifndef SRC_ACAL_LAB_INCLUDES_INSTRUCTION_H_
+#define SRC_ACAL_LAB_INCLUDES_INSTRUCTION_H_
 
 #include "instruction/SimdFuse.h"
 #include "instruction/SimdInst.h"
 
-#endif // _INSTRUCTION_H_
+#endif  // SRC_ACAL_LAB_INCLUDES_INSTRUCTION_H_

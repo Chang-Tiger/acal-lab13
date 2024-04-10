@@ -1,14 +1,12 @@
-#ifndef _TB_OP_RELU_H_
-#define _TB_OP_RELU_H_
+#ifndef SRC_ACAL_LAB_TB_INCLUDES_OP_SIMD_TB_RELU_H_
+#define SRC_ACAL_LAB_TB_INCLUDES_OP_SIMD_TB_RELU_H_
 
 #include "acal_lab/includes/op/scalar/ReLU.h"
 #include "acal_lab/includes/op/simd/ReLU.h"
 #include "tb_Op.h"
 
-namespace acal_lab
-{
-namespace tb
-{
+namespace acal_lab {
+namespace tb {
 
 #define RELU_dimC 8
 #define RELU_dimH 8
@@ -16,6 +14,7 @@ namespace tb
 
 bool tb_ReLU();
 
-} // namespace tb
-} // namespace acal_lab
-#endif // _TB_OP_RELU_H_
+}  // namespace tb
+}  // namespace acal_lab
+
+#endif  // SRC_ACAL_LAB_TB_INCLUDES_OP_SIMD_TB_RELU_H_

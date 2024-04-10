@@ -1,7 +1,7 @@
-#ifndef _TB__MODELS__ALEXNET_H_
-#define _TB__MODELS__ALEXNET_H_
+#ifndef SRC_ACAL_LAB_TB_INCLUDES_MODELS_ALEXNET_H_
+#define SRC_ACAL_LAB_TB_INCLUDES_MODELS_ALEXNET_H_
 
 #include "AlexNet/tb_AlexNet.h"
 #include "AlexNet/tb_AlexNetConfig.h"
 
-#endif // _TB__MODELS__ALEXNET_H_
+#endif  // SRC_ACAL_LAB_TB_INCLUDES_MODELS_ALEXNET_H_
