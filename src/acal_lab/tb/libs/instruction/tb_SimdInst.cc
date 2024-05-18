@@ -51,7 +51,7 @@ bool tb_sADDI8I8S_vx() {
 		sADDI8I8S_vx(rd, rs1, rs2);
 		cnt += i8_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sADDI8I8S_vv`     :               %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sADDI8I8S_vx`     :               %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 
