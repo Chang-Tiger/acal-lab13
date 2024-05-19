@@ -5,7 +5,7 @@ namespace simd {
 void Conv::execPerLayerNaiveQuant() {
 	/********************************************************************
 	 * TODO:                                                            *
-	 * For Homework 8.4, your task is to implement CONV with per Layer  *
+	 * For Homework 13.4, your task is to implement CONV with per Layer *
 	 * `Naive Quantization`. This involves using the instruction        *
 	 * `sPMULI8I16S(.vv/.vx)` to generate int16 output. However, the    *
 	 * int16 output needs to be converted to int8 and then forwarded    *
@@ -17,7 +17,7 @@ void Conv::execPerLayerNaiveQuant() {
 void Conv::execPerLayerAdvanceQuant() {
 	/***********************************************************
 	 * TODO:                                                   *
-	 * For Homework 8.4, implement CONV with per Operation     *
+	 * For Homework 13.4, implement CONV with per Operation    *
 	 * `Advance Quantization`. Update instruction in the       *
 	 * `void acal_lab::Conv::execPerLayerNaiveQuant()`         *
 	 * function from `sQNTI16I8S.vv.NQ` to `sQNTI16I8S.vv.AQ`. *
@@ -27,7 +27,7 @@ void Conv::execPerLayerAdvanceQuant() {
 void Conv::execPerOperationNaiveQuant() {
 	/********************************************************
 	 * TODO:                                                *
-	 * For Homework 8.3, implement CONV with per Operation  *
+	 * For Homework 13.3, implement CONV with per Operation *
 	 * Naive Quantization. Utilize `sAMULI8I8S(.vv/.vx).NQ` *
 	 * to generate int8 output.                             *
 	 *******************************************************/

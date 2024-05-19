@@ -35,7 +35,7 @@ void Gemm::execPerOperationNaiveQuant() {
 void Gemm::execPerLayerAdvanceQuant() {
 	/********************************************************************
 	 * TODO:                                                            *
-	 * For Homework 8.4, your task is to implement GEMM with per Layer  *
+	 * For Homework 13.3, your task is to implement GEMM with per Layer *
 	 * `Advance Quantization`. This involves using the instruction      *
 	 * `sPMULI8I16S(.vv/.vx)` to generate int16 output. However, the    *
 	 * int16 output needs to be converted to int8 and then forwarded    *
@@ -47,7 +47,7 @@ void Gemm::execPerLayerAdvanceQuant() {
 void Gemm::execPerOperationAdvanceQuant() {
 	/********************************************************************
 	 * TODO:                                                            *
-	 * For Homework 8.4, your task is to implement GEMM with per Layer  *
+	 * For Homework 13.3, your task is to implement GEMM with per Layer *
 	 * `Advance Quantization`. This involves using the instruction      *
 	 * `sPMULI8I16S(.vv/.vx)` to generate int16 output. However, the    *
 	 * int16 output needs to be converted to int8 and then forwarded    *

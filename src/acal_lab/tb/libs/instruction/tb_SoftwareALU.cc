@@ -65,7 +65,7 @@ void i8i16_alu_vv(operation op, int16_t rd[4], int8_t rs1[4], int8_t rs2[4], int
 	return;
 }
 
-void i8i16_alu_vx(operation op, int16_t rd[2], int8_t rs1[4], int32_t rs2, int sc, int zpt) {
+void i8i16_alu_vx(operation op, int16_t rd[4], int8_t rs1[4], int32_t rs2, int sc, int zpt) {
 	int idx = 4;
 	while (idx--) {
 		switch (op) {
