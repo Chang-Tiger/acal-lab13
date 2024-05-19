@@ -231,7 +231,7 @@ bool tb_sPMULI8I16S_vx_H() {
 		randinit_i8i16_vx(rs1, &rs2, rd, rd_tb);
 		i8i16_alu_vx(PMUL, rd_tb, rs1, rs2, 0, 0);
 		sPMULI8I16S_vx_H(rd + 2, rs1, rs2);
-		cnt += (i16_check(rd, rd_tb) + i16_check(rd + 2, rd_tb + 2) == 2) ? 1 : 0;
+		cnt += i16_check(rd + 2, rd_tb + 2);
 	}
 	printf("[ TEST ] `sPMULI8I16S_vx_H` : only .H       %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;

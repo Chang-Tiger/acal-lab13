@@ -46,8 +46,8 @@ void i16i16_alu_vx(operation op, int16_t rd[2], int16_t rs1[2], int32_t rs2, int
 	int idx = 2;
 	while (idx--) {
 		switch (op) {
-			case ADD: rd[idx] = rs1[idx] + (int8_t)rs2; break;
-			case SUB: rd[idx] = rs1[idx] - (int8_t)rs2; break;
+			case ADD: rd[idx] = rs1[idx] + (int16_t)rs2; break;
+			case SUB: rd[idx] = rs1[idx] - (int16_t)rs2; break;
 			default: break;
 		}
 	}
