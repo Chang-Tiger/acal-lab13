@@ -13,11 +13,11 @@ namespace tb {
 typedef enum Operation { ADD, SUB, PMUL, AMULNQ, AMULAQ } operation;
 
 void randinit_i8i8_vv(int8_t rs1[4], int8_t rs2[4], int8_t rdhw[4], int8_t rdtb[4]);
-void randinit_i8i8_vx(int8_t rs1[4], int32_t* rs2, int8_t rdhw[4], int8_t rdtb[4]);
+void randinit_i8i8_vx(int8_t rs1[4], int8_t* rs2, int8_t rdhw[4], int8_t rdtb[4]);
 void randinit_i16i16_vv(int16_t rs1[2], int16_t rs2[2], int16_t rdhw[2], int16_t rdtb[2]);
-void randinit_i16i16_vx(int16_t rs1[2], int32_t* rs2, int16_t rdhw[2], int16_t rdtb[2]);
+void randinit_i16i16_vx(int16_t rs1[2], int16_t* rs2, int16_t rdhw[2], int16_t rdtb[2]);
 void randinit_i8i16_vv(int8_t rs1[4], int8_t rs2[4], int16_t rdhw[4], int16_t rdtb[4]);
-void randinit_i8i16_vx(int8_t rs1[4], int32_t* rs2, int16_t rdhw[4], int16_t rdtb[4]);
+void randinit_i8i16_vx(int8_t rs1[4], int8_t* rs2, int16_t rdhw[4], int16_t rdtb[4]);
 int  i8_check(int8_t rdhw[4], int8_t rdtb[4]);
 int  i16_check(int16_t rdhw[2], int16_t rdtb[2]);
 

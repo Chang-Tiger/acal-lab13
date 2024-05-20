@@ -13,7 +13,7 @@ void randinit_i8i8_vv(int8_t rs1[4], int8_t rs2[4], int8_t rdhw[4], int8_t rdtb[
 	return;
 }
 
-void randinit_i8i8_vx(int8_t rs1[4], int32_t* rs2, int8_t rdhw[4], int8_t rdtb[4]) {
+void randinit_i8i8_vx(int8_t rs1[4], int8_t* rs2, int8_t rdhw[4], int8_t rdtb[4]) {
 	int idx = 4;
 	*rs2    = rand() % TB_DATA_SIZE_16_BIT;
 	while (idx--) {
@@ -35,7 +35,7 @@ void randinit_i16i16_vv(int16_t rs1[2], int16_t rs2[2], int16_t rdhw[2], int16_t
 	return;
 }
 
-void randinit_i16i16_vx(int16_t rs1[2], int32_t* rs2, int16_t rdhw[2], int16_t rdtb[2]) {
+void randinit_i16i16_vx(int16_t rs1[2], int16_t* rs2, int16_t rdhw[2], int16_t rdtb[2]) {
 	int idx = 2;
 	*rs2    = rand() % (TB_DATA_SIZE_16_BIT * TB_DATA_SIZE_16_BIT);
 	while (idx--) {
@@ -57,7 +57,7 @@ void randinit_i8i16_vv(int8_t rs1[4], int8_t rs2[4], int16_t rdhw[4], int16_t rd
 	return;
 }
 
-void randinit_i8i16_vx(int8_t rs1[4], int32_t* rs2, int16_t rdhw[4], int16_t rdtb[4]) {
+void randinit_i8i16_vx(int8_t rs1[4], int8_t* rs2, int16_t rdhw[4], int16_t rdtb[4]) {
 	int idx = 2;
 	*rs2    = rand() % TB_DATA_SIZE_16_BIT;
 	while (idx--) {

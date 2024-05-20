@@ -42,9 +42,9 @@ bool tb_sADDI16I16S_vv() {
 // 8-2.1-1.3 : Signed Integer Addition : sADDI8I8S_vx
 // inline void sADDI8I8S_vx(int8_t c[4], int8_t a[4], int8_t b)
 bool tb_sADDI8I8S_vx() {
-	int8_t  rs1[4], rd[4], rd_tb[4];
-	int32_t rs2;
-	int     idx = TB_SIZE, cnt = 0;
+	int8_t rs1[4], rd[4], rd_tb[4];
+	int8_t rs2;
+	int    idx = TB_SIZE, cnt = 0;
 	while (idx--) {
 		randinit_i8i8_vx(rs1, &rs2, rd, rd_tb);
 		i8i8_alu_vx(ADD, rd_tb, rs1, rs2, 0, 0);
@@ -59,7 +59,7 @@ bool tb_sADDI8I8S_vx() {
 // inline void sADDI16I16S_vx(int16_t c[2], int16_t a[2], int16_t b)
 bool tb_sADDI16I16S_vx() {
 	int16_t rs1[2], rd[2], rd_tb[2];
-	int32_t rs2;
+	int16_t rs2;
 	int     idx = TB_SIZE, cnt = 0;
 	while (idx--) {
 		randinit_i16i16_vx(rs1, &rs2, rd, rd_tb);
@@ -112,9 +112,9 @@ bool tb_sSUBI16I16S_vv() {
 // 8-2.1-2.3 : Signed Integer Substration : sSUBI8I8S_vx
 // inline void sSUBI8I8S_vx(int8_t c[4], int8_t a[4], int8_t b)
 bool tb_sSUBI8I8S_vx() {
-	int8_t  rs1[4], rd[4], rd_tb[4];
-	int32_t rs2;
-	int     idx = TB_SIZE, cnt = 0;
+	int8_t rs1[4], rd[4], rd_tb[4];
+	int8_t rs2;
+	int    idx = TB_SIZE, cnt = 0;
 	while (idx--) {
 		randinit_i8i8_vx(rs1, &rs2, rd, rd_tb);
 		i8i8_alu_vx(SUB, rd_tb, rs1, rs2, 0, 0);
@@ -129,7 +129,7 @@ bool tb_sSUBI8I8S_vx() {
 // inline void sSUBI16I16S_vx(int16_t c[2], int16_t a[2], int16_t b)
 bool tb_sSUBI16I16S_vx() {
 	int16_t rs1[2], rd[2], rd_tb[2];
-	int32_t rs2;
+	int16_t rs2;
 	int     idx = TB_SIZE, cnt = 0;
 	while (idx--) {
 		randinit_i16i16_vx(rs1, &rs2, rd, rd_tb);
@@ -211,7 +211,7 @@ bool tb_sPMULI8I16S_vv_LH() {
 bool tb_sPMULI8I16S_vx_L() {
 	int8_t  rs1[4];
 	int16_t rd[4], rd_tb[4];
-	int32_t rs2 = 0;
+	int8_t  rs2 = 0;
 	int     idx = TB_SIZE, cnt = 0;
 	while (idx--) {
 		randinit_i8i16_vx(rs1, &rs2, rd, rd_tb);
@@ -224,7 +224,7 @@ bool tb_sPMULI8I16S_vx_L() {
 }
 bool tb_sPMULI8I16S_vx_H() {
 	int8_t  rs1[4];
-	int32_t rs2 = 0;
+	int8_t  rs2 = 0;
 	int16_t rd[4], rd_tb[4];
 	int     idx = TB_SIZE, cnt = 0;
 	while (idx--) {
@@ -238,7 +238,7 @@ bool tb_sPMULI8I16S_vx_H() {
 }
 bool tb_sPMULI8I16S_vx_LH() {
 	int8_t  rs1[4];
-	int32_t rs2 = 0;
+	int8_t  rs2 = 0;
 	int16_t rd[4], rd_tb[4];
 	int     idx = TB_SIZE, cnt = 0;
 	while (idx--) {
@@ -253,14 +253,16 @@ bool tb_sPMULI8I16S_vx_LH() {
 }
 bool tb_sPMULI8I16S_vx_HL() {
 	int8_t  rs1[4];
-	int32_t rs2 = 0;
+	int8_t  rs2 = 0;
 	int16_t rd[4], rd_tb[4];
 	int     idx = TB_SIZE, cnt = 0;
 	while (idx--) {
 		randinit_i8i16_vx(rs1, &rs2, rd, rd_tb);
+
 		i8i16_alu_vx(PMUL, rd_tb, rs1, rs2, 0, 0);
 		sPMULI8I16S_vx_H(rd + 2, rs1, rs2);
 		sPMULI8I16S_vx_L(rd, rs1, rs2);
+		// sPMULI8I16S_vx(rd, rs1, rs2);
 		cnt += (i16_check(rd, rd_tb) + i16_check(rd + 2, rd_tb + 2) == 2) ? 1 : 0;
 	}
 	printf("[ TEST ] `sPMULI8I16S_vx`   : .H Before .L  %3d/%3d\n", cnt, TB_SIZE);
@@ -310,7 +312,7 @@ bool tb_sAMULI8I8S_vv_AQ() {
 		randinit_i8i8_vv(rs1, rs2, rd, rd_tb);
 		i8i8_alu_vv(AMULAQ, rd_tb, rs1, rs2, sc, zpt);
 		sQNT_INFO(sc, zpt);
-		sAMULI8I8S_vv_NQ(rd, rs1, rs2);
+		sAMULI8I8S_vv_AQ(rd, rs1, rs2);
 		cnt += i8_check(rd, rd_tb);
 	}
 	printf("[ TEST ] `sAMULI8I8S_vv_AQ` :               %3d/%3d\n", cnt, TB_SIZE);
@@ -321,9 +323,9 @@ bool tb_sAMULI8I8S_vv_AQ() {
 // sAMULI8I8S_vx_NQ inline void sAMULI8I8S_vx_NQ(int8_t c[4], int8_t a[4],
 // int8_t b)
 bool tb_sAMULI8I8S_vx_NQ() {
-	int8_t  rs1[4], rd[4], rd_tb[4];
-	int32_t rs2;
-	int     idx = TB_SIZE, cnt = 0;
+	int8_t rs1[4], rd[4], rd_tb[4];
+	int8_t rs2;
+	int    idx = TB_SIZE, cnt = 0;
 	while (idx--) {
 		randinit_i8i8_vx(rs1, &rs2, rd, rd_tb);
 		i8i8_alu_vx(AMULNQ, rd_tb, rs1, rs2, 0, 0);
@@ -338,17 +340,17 @@ bool tb_sAMULI8I8S_vx_NQ() {
 // sAMULI8I8S_vx_AQ inline void sAMULI8I8S_vx_AQ(int8_t c[4], int8_t a[4],
 // int8_t b[4])
 bool tb_sAMULI8I8S_vx_AQ() {
-	int8_t  rs1[4], rd[4], rd_tb[4];
-	int32_t rs2;
-	int     idx = TB_SIZE, cnt = 0;
-	int     sc = 0, zpt = 0;
+	int8_t rs1[4], rd[4], rd_tb[4];
+	int8_t rs2;
+	int    idx = TB_SIZE, cnt = 0;
+	int    sc = 0, zpt = 0;
 	while (idx--) {
 		// ScalingFactor =  0 ~ 8
 		sc = rand() % 8;
 		// ZeroPoint = 0 ~ 127
 		zpt = rand() % 128;
 		randinit_i8i8_vx(rs1, &rs2, rd, rd_tb);
-		i8i8_alu_vx(AMULNQ, rd_tb, rs1, rs2, sc, zpt);
+		i8i8_alu_vx(AMULAQ, rd_tb, rs1, rs2, sc, zpt);
 		sQNT_INFO(sc, zpt);
 		sAMULI8I8S_vx_AQ(rd, rs1, rs2);
 		cnt += i8_check(rd, rd_tb);
