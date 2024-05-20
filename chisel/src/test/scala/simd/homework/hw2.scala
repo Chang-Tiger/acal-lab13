@@ -493,8 +493,9 @@ class TestHw2Quantization extends AnyFreeSpec with ChiselScalatestTester {
     )) { dut =>
       val qnt_info_funct7 = Integer.parseInt("0000111", 2)
       val qnt_info_funct3 = Integer.parseInt("000", 2)
-      val funct7          = Integer.parseInt("0000010", 2)
-      val funct3          = Integer.parseInt("000", 2)
+
+      val funct7 = Integer.parseInt("0000010", 2)
+      val funct3 = Integer.parseInt("001", 2)
 
       for (i <- 0 until 50) {
         // setup quantization
@@ -541,8 +542,9 @@ class TestHw2Quantization extends AnyFreeSpec with ChiselScalatestTester {
     )) { dut =>
       val qnt_info_funct7 = Integer.parseInt("0000111", 2)
       val qnt_info_funct3 = Integer.parseInt("000", 2)
-      val funct7          = Integer.parseInt("1000010", 2)
-      val funct3          = Integer.parseInt("001", 2)
+
+      val funct7 = Integer.parseInt("1000010", 2)
+      val funct3 = Integer.parseInt("001", 2)
 
       for (i <- 0 until 50) {
         // setup quantization
@@ -623,8 +625,9 @@ class TestHw2Quantization extends AnyFreeSpec with ChiselScalatestTester {
     )) { dut =>
       val qnt_info_funct7 = Integer.parseInt("0000111", 2)
       val qnt_info_funct3 = Integer.parseInt("000", 2)
-      val funct7          = Integer.parseInt("0000111", 2)
-      val funct3          = Integer.parseInt("010", 2)
+
+      val funct7 = Integer.parseInt("0000111", 2)
+      val funct3 = Integer.parseInt("010", 2)
 
       for (i <- 0 until 50) {
         // setup quantization
