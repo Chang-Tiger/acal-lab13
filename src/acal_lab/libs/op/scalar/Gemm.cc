@@ -73,7 +73,7 @@ void Gemm::execPerLayerNaiveQuant() {
 	int tempH = 0, tempW;
 	for (int h = 0; h < output->H; h++) {
 		tempH = h * output->W;  // M * N
-		for (int w = 0; w < input->W; w++) {
+		for (int w = 0; w < output->W; w++) {
 			tempW               = tempH + w;
 			output->data[tempW] = (int8_t)(tempINT16_Buffer[tempW] >> 8);
 		}
