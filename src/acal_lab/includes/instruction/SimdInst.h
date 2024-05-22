@@ -209,6 +209,6 @@
  * @param arrI16b(rs2) Input array[2:3] containing INT16 values to be quantized.
  */
 #define sQNTI16I8S_vv_AQ(arrI8c, arrI16a, arrI16b) \
-	(*(int32_t*)(arrI8c) = cfu_op(0b010, 0b1000111, *(int32_t*)(arrI16a), *(int32_t*)(arrI16b)))
+	(*(int32_t*)(arrI8c) = cfu_op(0b010, 0b0000111, *(int32_t*)(arrI16a), *(int32_t*)(arrI16b)))
 
 #endif  // SRC_ACAL_LAB_INCLUDES_INSTRUCTION_SIMDINST_H_
