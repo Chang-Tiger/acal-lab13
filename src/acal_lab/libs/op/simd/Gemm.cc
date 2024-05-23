@@ -6,9 +6,7 @@ void Gemm::execPerLayerNaiveQuant() {}
 
 void Gemm::execPerOperationNaiveQuant() {
 	int    index_A, index_B, index_C;
-	int8_t temp_A[4] = {0}, temp_B[4] = {0};
-
-	int8_t temp_C[4] = {0};
+	int8_t temp_A[4] = {0}, temp_B[4] = {0}, temp_C[4] = {0};
 
 	for (int m = 0; m < input->H; m++) {
 		index_A = m * input->W;   // M * K
@@ -16,7 +14,7 @@ void Gemm::execPerOperationNaiveQuant() {
 		for (int k = 0; k < input->W; k++) {
 			index_B = k * info->weight.W;  // K * N
 			for (int n = 0; n < info->weight.W; n += 4) {
-				*(int32_t*)temp_A = (int32_t)0x01010101 * (int32_t)input->data[index_A + k];
+				for (int i = 0; i < 4; ++i) temp_A[i] = input->data[index_A + k];
 				*(int32_t*)temp_B = *(int32_t*)&(info->weight.data)[index_B + n];
 				int output_index  = index_C + n;
 				sAMULI8I8S_vv_NQ(temp_C, temp_A, temp_B);
