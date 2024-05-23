@@ -101,13 +101,14 @@ bool tb_AlexNet(testbench pic) {
 	tensorInfo relu5_12 = {
 	    .N = 1, .C = RELU_5_OPT_C, .H = RELU_5_OPT_H, .W = RELU_5_OPT_W, .data = relu5};  // ReLU_5 O / MxPl_3 I
 	tensorInfo mxpl3_13 = {
-	    .N = 1, .C = MXPL_3_OPT_C, .H = MXPL_3_OPT_H, .W = MXPL_3_OPT_W, .data = mxpl3};          // MxPl_3 O / Gemm_1 I
-	tensorInfo gemm1_14 = {.N = 1, .C = 1, .H = GEMM_1_OPT_H, .W = GEMM_1_OPT_W, .data = gemm1};  // Gemm_1 O / ReLU_6 I
-	tensorInfo relu6_15 = {
+	    .N = 1, .C = MXPL_3_OPT_C, .H = MXPL_3_OPT_H, .W = MXPL_3_OPT_W, .data = mxpl3};          // MxPl_3 O / Fltn_0 I
+	tensorInfo fltn1_14 = {.N = 1, .C = 1, .H = GEMM_1_OPT_H, .W = GEMM_1_OPT_W, .data = gemm1};  // Fltn_0 O / Gemm_1 I
+	tensorInfo gemm1_15 = {.N = 1, .C = 1, .H = GEMM_1_OPT_H, .W = GEMM_1_OPT_W, .data = gemm1};  // Gemm_1 O / ReLU_6 I
+	tensorInfo relu6_16 = {
 	    .N = 1, .C = RELU_6_OPT_C, .H = RELU_6_OPT_H, .W = RELU_6_OPT_W, .data = relu6};          // ReLU_6 O / Gemm_2 I
-	tensorInfo gemm2_16 = {.N = 1, .C = 1, .H = GEMM_2_OPT_H, .W = GEMM_2_OPT_W, .data = gemm2};  // Gemm_2 O / ReLU_7 I
-	tensorInfo relu7_17 = {.N = 1, .C = 1, .H = RELU_7_OPT_H, .W = RELU_7_OPT_W, .data = relu7};  // ReLU_7 O / Gemm_3 I
-	tensorInfo data1_18 = {.N = 1, .C = 1, .H = GEMM_3_OPT_H, .W = GEMM_3_OPT_W, .data = data1};  // Gemm_3 O / --------
+	tensorInfo gemm2_17 = {.N = 1, .C = 1, .H = GEMM_2_OPT_H, .W = GEMM_2_OPT_W, .data = gemm2};  // Gemm_2 O / ReLU_7 I
+	tensorInfo relu7_18 = {.N = 1, .C = 1, .H = RELU_7_OPT_H, .W = RELU_7_OPT_W, .data = relu7};  // ReLU_7 O / Gemm_3 I
+	tensorInfo data1_19 = {.N = 1, .C = 1, .H = GEMM_3_OPT_H, .W = GEMM_3_OPT_W, .data = data1};  // Gemm_3 O / --------
 
 	// Weight And Bias
 	tensorInfo conv1_w_0 = {
@@ -165,13 +166,13 @@ bool tb_AlexNet(testbench pic) {
 	convInfo   convInfo[5]  = {conv1_info, conv2_info, conv3_info, conv4_info, conv5_info};
 	gemmInfo   gemmInfo[3]  = {gemm1_info, gemm2_info, gemm3_info};
 	mxPlInfo   mxplInfo[3]  = {mxpl1_info, mxpl2_info, mxpl3_info};
-	tensorInfo tnsrInfo[19] = {data0_0,  conv1_1,  relu1_2,  mxpl1_3,  conv2_4,  relu2_5,  mxpl2_6,
+	tensorInfo tnsrInfo[20] = {data0_0,  conv1_1,  relu1_2,  mxpl1_3,  conv2_4,  relu2_5,  mxpl2_6,
 	                           conv3_7,  relu3_8,  conv4_9,  relu4_10, conv5_11, relu5_12, mxpl3_13,
-	                           gemm1_14, relu6_15, gemm2_16, relu7_17, data1_18};
+	                           fltn1_14, gemm1_15, relu6_16, gemm2_17, relu7_18, data1_19};
 	quantiInfo quanInfo[8]  = {conv1_q, conv2_q, conv3_q, conv4_q, conv5_q, gemm1_q, gemm2_q, gemm3_q};
 	acal_lab::alexNet(convInfo, gemmInfo, mxplInfo, tnsrInfo, quanInfo);
 
-	return tb_check(data1_18, pic);
+	return tb_check(data1_19, pic);
 }
 
 bool tb_check(tensorInfo output, testbench pic) {

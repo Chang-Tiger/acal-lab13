@@ -16,11 +16,14 @@ void alexNet(convInfo* cInfo, gemmInfo* gInfo, mxPlInfo* mInfo, tensorInfo* tInf
 	simd::Conv(&tInfo[11], &tInfo[10], &cInfo[4], &qInfo[4], PER_LAYER_ADVANCE_QUANTI).execute();
 	simd::ReLU(&tInfo[12], &tInfo[11], GENERAL).execute();
 	simd::MxPl(&tInfo[13], &tInfo[12], &mInfo[2], GENERAL).execute();
-	simd::Gemm(&tInfo[14], &tInfo[13], &gInfo[0], &qInfo[6], PER_LAYER_ADVANCE_QUANTI).execute();
-	simd::ReLU(&tInfo[15], &tInfo[14], GENERAL).execute();
-	simd::Gemm(&tInfo[16], &tInfo[15], &gInfo[1], &qInfo[7], PER_LAYER_ADVANCE_QUANTI).execute();
-	simd::ReLU(&tInfo[17], &tInfo[16], GENERAL).execute();
-	simd::Gemm(&tInfo[18], &tInfo[17], &gInfo[2], &qInfo[8], PER_LAYER_ADVANCE_QUANTI).execute();
+	scalar::Flatten(&tInfo[14], &tInfo[13], GENERAL).execute();
+	simd::Gemm(&tInfo[15], &tInfo[14], &gInfo[0], &qInfo[6], PER_LAYER_ADVANCE_QUANTI).execute();
+	simd::ReLU(&tInfo[16], &tInfo[15], GENERAL).execute();
+	simd::Gemm(&tInfo[17], &tInfo[16], &gInfo[1], &qInfo[7], PER_LAYER_ADVANCE_QUANTI).execute();
+	simd::ReLU(&tInfo[18], &tInfo[17], GENERAL).execute();
+	simd::Gemm(&tInfo[19], &tInfo[18], &gInfo[2], &qInfo[8], PER_LAYER_ADVANCE_QUANTI).execute();
 }
+
+void alexNetSummary(tensorInfo* tInfo) {}
 
 }  // namespace acal_lab
