@@ -101,8 +101,9 @@ bool tb_AlexNet(testbench pic) {
 	tensorInfo relu5_12 = {
 	    .N = 1, .C = RELU_5_OPT_C, .H = RELU_5_OPT_H, .W = RELU_5_OPT_W, .data = relu5};  // ReLU_5 O / MxPl_3 I
 	tensorInfo mxpl3_13 = {
-	    .N = 1, .C = MXPL_3_OPT_C, .H = MXPL_3_OPT_H, .W = MXPL_3_OPT_W, .data = mxpl3};          // MxPl_3 O / Fltn_0 I
-	tensorInfo fltn1_14 = {.N = 1, .C = 1, .H = GEMM_1_OPT_H, .W = GEMM_1_OPT_W, .data = gemm1};  // Fltn_0 O / Gemm_1 I
+	    .N = 1, .C = MXPL_3_OPT_C, .H = MXPL_3_OPT_H, .W = MXPL_3_OPT_W, .data = mxpl3};  // MxPl_3 O / Fltn_0 I
+	tensorInfo fltn1_14 = {
+	    .N = 1, .C = FLTN_0_OPT_C, .H = FLTN_0_OPT_H, .W = FLTN_0_OPT_W, .data = gemm1};          // Fltn_0 O / Gemm_1 I
 	tensorInfo gemm1_15 = {.N = 1, .C = 1, .H = GEMM_1_OPT_H, .W = GEMM_1_OPT_W, .data = gemm1};  // Gemm_1 O / ReLU_6 I
 	tensorInfo relu6_16 = {
 	    .N = 1, .C = RELU_6_OPT_C, .H = RELU_6_OPT_H, .W = RELU_6_OPT_W, .data = relu6};          // ReLU_6 O / Gemm_2 I

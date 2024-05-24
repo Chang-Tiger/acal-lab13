@@ -3,7 +3,7 @@ namespace acal_lab {
 namespace scalar {
 
 void Gemm::execPerOperationNaiveQuant() {
-	int index_A, index_B, index_C;
+	int index_A = 0, index_B = 0, index_C = 0;
 	for (int m = 0; m < input->H; m++) {
 		index_A = m * input->W;   // M * K
 		index_C = m * output->W;  // M * N
@@ -21,7 +21,7 @@ void Gemm::execPerOperationNaiveQuant() {
 
 void Gemm::execPerOperationAdvanceQuant() {
 	int8_t temp_A[4] = {0}, temp_B[4] = {0};
-	int    index_A, index_B, index_C;
+	int    index_A = 0, index_B = 0, index_C = 0;
 	for (int m = 0; m < input->H; m++) {
 		index_A = m * input->W;   // M * K
 		index_C = m * output->W;  // M * N
@@ -56,11 +56,11 @@ void Gemm::execPerLayerNaiveQuant() {
 				    (int16_t)input->data[index_A + k] * (int16_t)info->weight.data[index_B + n];
 			}
 		}
-		for (int n = 0; n < info->weight.W; n++) output->data[index_C + n] += info->bias.data[index_C + n];
+		for (int n = 0; n < info->weight.W; n++) tempINT16_Buffer[index_C + n] += info->bias.data[index_C + n];
 	}
 
 	// PER LAYER QUANTIZATION
-	int tempH = 0, tempW;
+	int tempH = 0, tempW = 0;
 	for (int h = 0; h < output->H; h++) {
 		tempH = h * output->W;  // M * N
 		for (int w = 0; w < output->W; w++) {
@@ -84,11 +84,11 @@ void Gemm::execPerLayerAdvanceQuant() {
 				    (int16_t)input->data[index_A + k] * (int16_t)info->weight.data[index_B + n];
 			}
 		}
-		for (int n = 0; n < info->weight.W; n++) output->data[index_C + n] += info->bias.data[index_C + n];
+		for (int n = 0; n < info->weight.W; n++) tempINT16_Buffer[index_C + n] += info->bias.data[index_C + n];
 	}
 
 	// PER LAYER QUANTIZATION
-	int tempH = 0, tempW;
+	int tempH = 0, tempW = 0;
 	for (int h = 0; h < output->H; h++) {
 		tempH = h * output->W;  // M * N
 		for (int w = 0; w < output->W; w++) {

@@ -30,25 +30,25 @@ using namespace acal_lab;
 namespace {
 
 void do_SIMD_TB_lab(void) {
-	printf("=============== SIMD Vector-Vector ================\n");
+	printf("=================   SIMD Vector-Vector   ====================\n");
 	bool vvTB = tb::tb_sADDS_vv() & tb::tb_sSUBS_vv() & tb::tb_sPMULI8I16S_vv() & tb::tb_sAMULI8I8S_vv_NQ();
-	printf("---------------------------------------------------\n");
-	printf("SIMD Integer Extension : (Lab Edition)       | %4s\n", vvTB ? "Pass" : "Fail");
-	printf("===================================================\n");
+	printf("-------------------------------------------------------------\n");
+	printf("SIMD Integer Extension : (Lab Edition)                 | %4s\n", vvTB ? "Pass" : "Fail");
+	printf("=============================================================\n");
 }
 
 void do_SIMD_TB_hw(void) {
-	printf("=============== SIMD Vector-Vector ================\n");
+	printf("=================   SIMD Vector-Vector   ====================\n");
 	bool vvTB = tb::tb_sADDS_vv() & tb::tb_sSUBS_vv() & tb::tb_sPMULI8I16S_vv() & tb::tb_sAMULI8I8S_vv();
-	printf("---------------------------------------------------\n");
-	printf("=> SUMMARY | SIMD Vector-Vector :            | %4s\n", vvTB ? "Pass" : "Fail");
-	printf("=============== SIMD Vector-Scalar ================\n");
+	printf("-------------------------------------------------------------\n");
+	printf("=> SUMMARY | SIMD Vector-Vector :                     | %4s\n", vvTB ? "Pass" : "Fail");
+	printf("=================   SIMD Vector-Vector   ====================\n");
 	bool vxTB = tb::tb_sADDS_vx() & tb::tb_sSUBS_vx() & tb::tb_sPMULI8I16S_vx() & tb::tb_sAMULI8I8S_vx();
-	printf("---------------------------------------------------\n");
-	printf("=> SUMMARY | SIMD Vector-Scalar :            | %4s\n", vxTB ? "Pass" : "Fail");
-	printf("---------------------------------------------------\n");
-	printf("SIMD Integer Extension : (Homework Edition)  | %4s\n", vvTB & vxTB ? "Pass" : "Fail");
-	printf("===================================================\n");
+	printf("-------------------------------------------------------------\n");
+	printf("=> SUMMARY | SIMD Vector-Scalar :                     | %4s\n", vxTB ? "Pass" : "Fail");
+	printf("-------------------------------------------------------------\n");
+	printf("SIMD Integer Extension : (Homework Edition)           | %4s\n", vvTB & vxTB ? "Pass" : "Fail");
+	printf("=============================================================\n");
 }
 
 void do_GEMM_with_SIMD_lab(void) {
@@ -115,8 +115,7 @@ void do_ALEXNET_INFERENCE_DATA1(void) {
 }
 void do_ALL() {
 	do_SIMD_TB_hw();
-	printf("=============================================================\n");
-	printf("=============================================================\n");
+	printf("\n\n");
 	do_GEMM_with_SIMD_hw();
 	do_CONV_with_SIMD_hw();
 	do_MXPL_with_SIMD_hw();

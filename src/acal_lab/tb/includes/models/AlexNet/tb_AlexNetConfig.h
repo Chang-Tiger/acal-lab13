@@ -7,7 +7,6 @@
 #define DATA_0_W 64
 
 // Layer 1 : Convolution
-
 #define CONV_1_W_N         16
 #define CONV_1_W_C         4
 #define CONV_1_W_H         9
@@ -108,31 +107,33 @@
 #define MXPL_3_KERNEL_SIZE 2
 #define MXPL_3_STRIDE      2
 #define MXPL_3_PADDING     0
-// Layer 14 : GEMM
-#define GEMM_1_IPT_H 1
-#define GEMM_1_IPT_W 288
+// Layer 14 : Flatten
+#define FLTN_0_OPT_C 1
+#define FLTN_0_OPT_H 1
+#define FLTN_0_OPT_W 288
+// Layer 15 : GEMM
 #define GEMM_1_W_H   144
 #define GEMM_1_W_W   288
 #define GEMM_1_B_H   1
 #define GEMM_1_B_W   144
 #define GEMM_1_OPT_H 1
 #define GEMM_1_OPT_W 144
-// Layer 15 : ReLU
+// Layer 16 : ReLU
 #define RELU_6_OPT_C 1
 #define RELU_6_OPT_H 1
 #define RELU_6_OPT_W 144
-// Layer 16 : GEMM
+// Layer 17 : GEMM
 #define GEMM_2_W_H   144
 #define GEMM_2_W_W   144
 #define GEMM_2_B_H   1
 #define GEMM_2_B_W   144
 #define GEMM_2_OPT_H 1
 #define GEMM_2_OPT_W 144
-// Layer 17 : ReLU
+// Layer 18 : ReLU
 #define RELU_7_OPT_C 1
-#define RELU_7_OPT_H 144
+#define RELU_7_OPT_H 1
 #define RELU_7_OPT_W 144
-// Layer 18 : GEMM
+// Layer 19 : GEMM
 #define GEMM_3_W_H   10
 #define GEMM_3_W_W   144
 #define GEMM_3_B_H   1

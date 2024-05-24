@@ -20,7 +20,7 @@ bool tb_sADDI8I8S_vv() {
 		sADDI8I8S_vv(rd, rs1, rs2);
 		cnt += i8_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sADDI8I8S_vv`     :               %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sADDI8I8S_vv`     :                         %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 
@@ -35,7 +35,7 @@ bool tb_sADDI16I16S_vv() {
 		sADDI16I16S_vv(rd, rs1, rs2);
 		cnt += i16_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sADDI16I16S_vv`   :               %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sADDI16I16S_vv`   :                         %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 
@@ -51,7 +51,7 @@ bool tb_sADDI8I8S_vx() {
 		sADDI8I8S_vx(rd, rs1, rs2);
 		cnt += i8_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sADDI8I8S_vx`     :               %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sADDI8I8S_vx`     :                         %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 
@@ -67,7 +67,7 @@ bool tb_sADDI16I16S_vx() {
 		sADDI16I16S_vx(rd, rs1, rs2);
 		cnt += i16_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sADDI16I16S_vx`   :               %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sADDI16I16S_vx`   :                         %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 
@@ -90,7 +90,7 @@ bool tb_sSUBI8I8S_vv() {
 		sSUBI8I8S_vv(rd, rs1, rs2);
 		cnt += i8_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sSUBI8I8S_vv`     :               %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sSUBI8I8S_vv`     :                         %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 
@@ -105,7 +105,7 @@ bool tb_sSUBI16I16S_vv() {
 		sSUBI16I16S_vv(rd, rs1, rs2);
 		cnt += i16_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sSUBI16I16S_vv`   :               %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sSUBI16I16S_vv`   :                         %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 
@@ -121,7 +121,7 @@ bool tb_sSUBI8I8S_vx() {
 		sSUBI8I8S_vx(rd, rs1, rs2);
 		cnt += i8_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sSUBI8I8S_vx`     :               %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sSUBI8I8S_vx`     :                         %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 
@@ -137,7 +137,7 @@ bool tb_sSUBI16I16S_vx() {
 		sSUBI16I16S_vx(rd, rs1, rs2);
 		cnt += i16_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sSUBI16I16S_vx`   :               %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sSUBI16I16S_vx`   :                         %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 
@@ -163,7 +163,7 @@ bool tb_sPMULI8I16S_vv_L() {
 		sPMULI8I16S_vv_L(rd, rs1, rs2);
 		cnt += i16_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sPMULI8I16S_vv_L` : only .L       %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sPMULI8I16S_vv_L` : only .L                 %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 bool tb_sPMULI8I16S_vv_H() {
@@ -176,7 +176,7 @@ bool tb_sPMULI8I16S_vv_H() {
 		sPMULI8I16S_vv_H(rd + 2, rs1, rs2);
 		cnt += i16_check(rd + 2, rd_tb + 2);
 	}
-	printf("[ TEST ] `sPMULI8I16S_vv_H` : only .H       %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sPMULI8I16S_vv_H` : only .H                 %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 bool tb_sPMULI8I16S_vv_HL() {
@@ -190,7 +190,7 @@ bool tb_sPMULI8I16S_vv_HL() {
 		sPMULI8I16S_vv_L(rd, rs1, rs2);
 		cnt += (i16_check(rd, rd_tb) + i16_check(rd + 2, rd_tb + 2) == 2) ? 1 : 0;
 	}
-	printf("[ TEST ] `sPMULI8I16S_vv`   : .H Before .L  %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sPMULI8I16S_vv`   : .H Before .L            %3d/%3d\n", cnt, TB_SIZE);
 
 	return cnt == TB_SIZE;
 }
@@ -205,7 +205,7 @@ bool tb_sPMULI8I16S_vv_LH() {
 		sPMULI8I16S_vv_H(rd + 2, rs1, rs2);
 		cnt += (i16_check(rd, rd_tb) + i16_check(rd + 2, rd_tb + 2) == 2) ? 1 : 0;
 	}
-	printf("[ TEST ] `sPMULI8I16S_vv`   : .L Before .H  %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sPMULI8I16S_vv`   : .L Before .H            %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 bool tb_sPMULI8I16S_vx_L() {
@@ -219,7 +219,7 @@ bool tb_sPMULI8I16S_vx_L() {
 		sPMULI8I16S_vx_L(rd, rs1, rs2);
 		cnt += i16_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sPMULI8I16S_vx_L` : only .L       %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sPMULI8I16S_vx_L` : only .L                 %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 bool tb_sPMULI8I16S_vx_H() {
@@ -233,7 +233,7 @@ bool tb_sPMULI8I16S_vx_H() {
 		sPMULI8I16S_vx_H(rd + 2, rs1, rs2);
 		cnt += i16_check(rd + 2, rd_tb + 2);
 	}
-	printf("[ TEST ] `sPMULI8I16S_vx_H` : only .H       %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sPMULI8I16S_vx_H` : only .H                 %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 bool tb_sPMULI8I16S_vx_LH() {
@@ -248,7 +248,7 @@ bool tb_sPMULI8I16S_vx_LH() {
 		sPMULI8I16S_vx_H(rd + 2, rs1, rs2);
 		cnt += (i16_check(rd, rd_tb) + i16_check(rd + 2, rd_tb + 2) == 2) ? 1 : 0;
 	}
-	printf("[ TEST ] `sPMULI8I16S_vx`   : .L Before .H  %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sPMULI8I16S_vx`   : .L Before .H            %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 bool tb_sPMULI8I16S_vx_HL() {
@@ -265,7 +265,7 @@ bool tb_sPMULI8I16S_vx_HL() {
 		// sPMULI8I16S_vx(rd, rs1, rs2);
 		cnt += (i16_check(rd, rd_tb) + i16_check(rd + 2, rd_tb + 2) == 2) ? 1 : 0;
 	}
-	printf("[ TEST ] `sPMULI8I16S_vx`   : .H Before .L  %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sPMULI8I16S_vx`   : .H Before .L            %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 bool tb_sPMULI8I16S_vv() {
@@ -292,7 +292,7 @@ bool tb_sAMULI8I8S_vv_NQ() {
 		sAMULI8I8S_vv_NQ(rd, rs1, rs2);
 		cnt += i8_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sAMULI8I8S_vv_NQ` :               %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sAMULI8I8S_vv_NQ` :                         %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 
@@ -315,7 +315,7 @@ bool tb_sAMULI8I8S_vv_AQ() {
 		sAMULI8I8S_vv_AQ(rd, rs1, rs2);
 		cnt += i8_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sAMULI8I8S_vv_AQ` :               %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sAMULI8I8S_vv_AQ` :                         %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 
@@ -332,7 +332,7 @@ bool tb_sAMULI8I8S_vx_NQ() {
 		sAMULI8I8S_vx_NQ(rd, rs1, rs2);
 		cnt += i8_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sAMULI8I8S_vx_NQ` :               %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sAMULI8I8S_vx_NQ` :                         %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 
@@ -355,7 +355,7 @@ bool tb_sAMULI8I8S_vx_AQ() {
 		sAMULI8I8S_vx_AQ(rd, rs1, rs2);
 		cnt += i8_check(rd, rd_tb);
 	}
-	printf("[ TEST ] `sAMULI8I8S_vx_AQ` :               %3d/%3d\n", cnt, TB_SIZE);
+	printf("[ TEST ] `sAMULI8I8S_vx_AQ` :                         %3d/%3d\n", cnt, TB_SIZE);
 	return cnt == TB_SIZE;
 }
 bool tb_sAMULI8I8S_vv() { return tb_sAMULI8I8S_vv_NQ() & tb_sAMULI8I8S_vv_AQ(); }
