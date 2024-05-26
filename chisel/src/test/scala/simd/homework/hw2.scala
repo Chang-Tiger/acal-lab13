@@ -508,6 +508,8 @@ class TestHw2Quantization extends AnyFreeSpec with ChiselScalatestTester {
         dut.io.cmd_payload.bits.rs1.poke(scaling_factor)
         dut.io.cmd_payload.bits.rs2.poke(zero)
         dut.io.cmd_payload.ready.expect(true.B)
+        dut.io.rsp_payload.ready.poke(true.B)
+        dut.io.rsp_payload.valid.expect(true.B)
         dut.clock.step(1)
 
         // calculation
@@ -557,6 +559,8 @@ class TestHw2Quantization extends AnyFreeSpec with ChiselScalatestTester {
         dut.io.cmd_payload.bits.rs1.poke(scaling_factor)
         dut.io.cmd_payload.bits.rs2.poke(zero)
         dut.io.cmd_payload.ready.expect(true.B)
+        dut.io.rsp_payload.ready.poke(true.B)
+        dut.io.rsp_payload.valid.expect(true.B)
         dut.clock.step(1)
 
         // calculation
@@ -640,6 +644,8 @@ class TestHw2Quantization extends AnyFreeSpec with ChiselScalatestTester {
         dut.io.cmd_payload.bits.rs1.poke(scaling_factor)
         dut.io.cmd_payload.bits.rs2.poke(zero)
         dut.io.cmd_payload.ready.expect(true.B)
+        dut.io.rsp_payload.ready.poke(true.B)
+        dut.io.rsp_payload.valid.expect(true.B)
         dut.clock.step(1)
 
         // calculation
