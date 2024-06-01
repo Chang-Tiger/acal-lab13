@@ -211,4 +211,25 @@
 #define sQNTI16I8S_vv_AQ(arrI8c, arrI16a, arrI16b) \
 	(*(int32_t*)(arrI8c) = cfu_op(0b010, 0b0000111, *(int32_t*)(arrI16a), *(int32_t*)(arrI16b)))
 
+
+/**
+ * @brief 13-3-1-1.3 : Signed Integer Addition : sADDI8I8S_vx
+ * @note `inline void sADDI8I8S_vx(int8_t c[4], int8_t a[4], int8_t b)`
+ * @param arrI8c(rd) `int8_t[4]` Output array[0:3] to store the INT8 values.
+ * @param arrI8a(rs1) `int8_t[4]` Input array[0:3] containing INT8 values.
+ * @param I8b(rs2) `int8_t` Input containing INT8 values.
+ */
+#define sRELUI8I8S_vx(arrI8c, arrI8a, I8b) \
+	(*(int32_t*)(arrI8c) = cfu_op(0b110, 0b0000000, *(int32_t*)(arrI8a), (int32_t)(I8b)))
+
+/**
+ * @brief 13-3-1-1.3 : Signed Integer Addition : sADDI8I8S_vx
+ * @note `inline void sADDI8I8S_vx(int8_t c[4], int8_t a[4], int8_t b)`
+ * @param arrI8c(rd) `int8_t[4]` Output array[0:3] to store the INT8 values.
+ * @param arrI8a(rs1) `int8_t[4]` Input array[0:3] containing INT8 values.
+ * @param I8b(rs2) `int8_t` Input containing INT8 values.
+ */
+#define sMAXPLI8I8S_vx(arrI8c, arrI8a, I8b) \
+	(*(int32_t*)(arrI8c) = cfu_op(0b110, 0b0000001, *(int32_t*)(arrI8a), (int32_t)(I8b)))
+
 #endif  // SRC_ACAL_LAB_INCLUDES_INSTRUCTION_SIMDINST_H_

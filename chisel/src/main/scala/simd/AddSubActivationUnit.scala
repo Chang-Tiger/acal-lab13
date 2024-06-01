@@ -8,6 +8,10 @@ object AddSubActivationOp extends ChiselEnum {
   val NONE                       = Value
   val ADDI8I8S_VV, ADDI16I16S_VV = Value
   val SUBI8I8S_VV, SUBI16I16S_VV = Value
+
+  //modified for hw
+  val ADDI8I8S_VX, ADDI16I16S_VX = Value
+  val SUBI8I8S_VX, SUBI16I16S_VX = Value
 }
 
 class AddSubActivationUnit extends Module {
@@ -37,7 +41,11 @@ class AddSubActivationUnit extends Module {
       DontCare,
       Seq(
         AddSubActivationOp.ADDI8I8S_VV.asUInt -> (rs1ByteArray(i).asSInt + rs2ByteArray(i).asSInt).asUInt,
-        AddSubActivationOp.SUBI8I8S_VV.asUInt -> (rs1ByteArray(i).asSInt - rs2ByteArray(i).asSInt).asUInt
+        AddSubActivationOp.SUBI8I8S_VV.asUInt -> (rs1ByteArray(i).asSInt - rs2ByteArray(i).asSInt).asUInt,
+
+        //modified for hw
+        AddSubActivationOp.ADDI8I8S_VX.asUInt -> (rs1ByteArray(i).asSInt + rs2ByteArray(0).asSInt).asUInt,
+        AddSubActivationOp.SUBI8I8S_VX.asUInt -> (rs1ByteArray(i).asSInt - rs2ByteArray(0).asSInt).asUInt
       )
     )
   }
@@ -52,7 +60,11 @@ class AddSubActivationUnit extends Module {
       DontCare,
       Seq(
         AddSubActivationOp.ADDI16I16S_VV.asUInt -> (rs1HalfArray(i).asSInt + rs2HalfArray(i).asSInt).asUInt,
-        AddSubActivationOp.SUBI16I16S_VV.asUInt -> (rs1HalfArray(i).asSInt - rs2HalfArray(i).asSInt).asUInt
+        AddSubActivationOp.SUBI16I16S_VV.asUInt -> (rs1HalfArray(i).asSInt - rs2HalfArray(i).asSInt).asUInt,
+
+        //modified for hw
+        AddSubActivationOp.ADDI16I16S_VX.asUInt -> (rs1HalfArray(i).asSInt + rs2HalfArray(0).asSInt).asUInt,
+        AddSubActivationOp.SUBI16I16S_VX.asUInt -> (rs1HalfArray(i).asSInt - rs2HalfArray(0).asSInt).asUInt
       )
     )
   }
@@ -62,12 +74,18 @@ class AddSubActivationUnit extends Module {
 
   when(io.opSel.isOneOf(
     AddSubActivationOp.ADDI8I8S_VV,
-    AddSubActivationOp.SUBI8I8S_VV
+    AddSubActivationOp.SUBI8I8S_VV,
+    //modified for hw
+    AddSubActivationOp.ADDI8I8S_VX,
+    AddSubActivationOp.SUBI8I8S_VX
   )) {
     io.rd := rdByteConcat
   }.elsewhen(io.opSel.isOneOf(
     AddSubActivationOp.ADDI16I16S_VV,
-    AddSubActivationOp.SUBI16I16S_VV
+    AddSubActivationOp.SUBI16I16S_VV,
+    //modified for hw
+    AddSubActivationOp.ADDI16I16S_VX,
+    AddSubActivationOp.SUBI16I16S_VX
   )) {
     io.rd := rdHalfConcat
   }.otherwise {

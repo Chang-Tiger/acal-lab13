@@ -1,5 +1,5 @@
 #include "acal_lab/tb/includes/op/simd/tb_Gemm.h"
-
+#include "perf.h"
 #define TB_SIZE 100
 
 namespace acal_lab {
@@ -60,6 +60,10 @@ bool tb_GemmPerLayerAdvanceQuant(tensorInfo* optTest, tensorInfo* opt, tensorInf
                                  quantiInfo* quantInfo) {
 	int per_layer_cnt = 0;
 	int tb_idx        = TB_SIZE;
+	unsigned int start, start_simd, end, end_simd;
+	unsigned int cpu_time_used_simd, cpu_time_used;
+	cpu_time_used = 0;
+	cpu_time_used_simd = 0;
 	while (tb_idx--) {
 		randomInit8(ipt);
 		randomInit8(&opInfo->bias);
@@ -68,11 +72,19 @@ bool tb_GemmPerLayerAdvanceQuant(tensorInfo* optTest, tensorInfo* opt, tensorInf
 		quantInfo->scaling_factor = rand() % 8;
 		// ZeroPoint =  0 ~ 127
 		quantInfo->zero_point = rand() % 128;
+		start_simd = perf_get_mcycle();
 		simd::Gemm(opt, ipt, opInfo, quantInfo, PER_LAYER_ADVANCE_QUANTI).execute();
+		end_simd = perf_get_mcycle();
+		cpu_time_used_simd += end_simd - start_simd;
+
+		start = perf_get_mcycle();
 		scalar::Gemm(optTest, ipt, opInfo, quantInfo, PER_LAYER_ADVANCE_QUANTI).execute();
+		end = perf_get_mcycle();
+		cpu_time_used += end - start;
 		per_layer_cnt += compare8(optTest, opt);
 	}
 	printf("[ TEST ] `GEMM`  : per   Layer   Advance Quantization %3d/%3d\n", per_layer_cnt, TB_SIZE);
+	//printf("[ TEST ] `GEMM`  :exe time:  simd %u cycles/ scalar %u cycles\n", cpu_time_used_simd, cpu_time_used);
 	return per_layer_cnt == TB_SIZE ? true : false;
 }
 bool tb_Gemm(testType type) {

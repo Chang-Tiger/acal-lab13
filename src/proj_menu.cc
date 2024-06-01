@@ -24,19 +24,21 @@
 #include "acal_lab/tb/includes/op.h"
 #include "cfu.h"
 #include "menu.h"
-
+#include "perf.h"
 using namespace acal_lab;
 
 namespace {
 
-void do_SIMD_TB_lab(void) {
-	printf("=================   SIMD Vector-Vector   ====================\n");
-	bool vvTB = tb::tb_sADDS_vv() & tb::tb_sSUBS_vv() & tb::tb_sPMULI8I16S_vv() & tb::tb_sAMULI8I8S_vv_NQ();
-	printf("-------------------------------------------------------------\n");
-	printf("SIMD Integer Extension : (Lab Edition)                 | %4s\n", vvTB ? "Pass" : "Fail");
-	printf("=============================================================\n");
+void do_SIMD_TB_lab(void)
+{
+    printf("Entering loop at: %u\n", perf_get_mcycle());
+    printf("=============== SIMD Vector-Vector ================\n");
+    bool vvTB = tb::tb_sADDS_vv() & tb::tb_sSUBS_vv() & tb::tb_sPMULI8I16S_vv() & tb::tb_sAMULI8I8S_vv_NQ();
+    printf("---------------------------------------------------\n");
+    printf("SIMD Integer Extension : (Lab Edition)       | %4s\n", vvTB ? "Pass" : "Fail");
+    printf("===================================================\n");
+    printf("Exiting loop at: %u\n", perf_get_mcycle());
 }
-
 void do_SIMD_TB_hw(void) {
 	printf("=================   SIMD Vector-Vector   ====================\n");
 	bool vvTB = tb::tb_sADDS_vv() & tb::tb_sSUBS_vv() & tb::tb_sPMULI8I16S_vv() & tb::tb_sAMULI8I8S_vv();

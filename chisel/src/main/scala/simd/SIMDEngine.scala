@@ -5,7 +5,7 @@ import chisel3.util._
 import chisel3.experimental.ChiselEnum
 
 object OutputSel extends ChiselEnum {
-  val ADDSUB, MUL, REG = Value
+  val ADDSUB, MUL, REG,QUA,COM = Value
 }
 
 class CfuInPayload extends Bundle {
@@ -29,6 +29,9 @@ class SIMDEngine extends Module {
   val addSubActivationUnit = Module(new AddSubActivationUnit())
   val mulUnit              = Module(new MulUnit())
   val register             = Module(new Register())
+  //modified===
+  val quantizationUnit     = Module(new QuantizationUnit())
+  val compareUnit          = Module(new CompareUnit())
 
   controller.io.cmd_payload <> io.cmd_payload
   controller.io.rsp_payload <> io.rsp_payload
@@ -46,13 +49,31 @@ class SIMDEngine extends Module {
   register.io.wenRs             := controller.io.wenRs
   register.io.wenRd             := controller.io.wenRd
 
+  //modified
+  quantizationUnit.io.opSel     := controller.io.quaOpSel
+  quantizationUnit.io.rs1       := io.cmd_payload.bits.rs1.asUInt
+  quantizationUnit.io.rs2       := io.cmd_payload.bits.rs2.asUInt
+  mulUnit.io.scale              := quantizationUnit.io.scale_out   
+  mulUnit.io.zpoint             := quantizationUnit.io.zpoint_out  
+  mulUnit.io.s_pos              := quantizationUnit.io.s_pos  
+  mulUnit.io.z_pos              := quantizationUnit.io.z_pos 
+  
+  mulUnit.io.q_info             := controller.io.QUA_info
+
+  compareUnit.io.opSel     := controller.io.comOpSel
+  compareUnit.io.rs1       := io.cmd_payload.bits.rs1.asUInt
+  compareUnit.io.rs2       := io.cmd_payload.bits.rs2.asUInt
+
+
   io.rsp_payload.bits.rd := MuxLookup(
     controller.io.outputSel.asUInt,
     DontCare,
     Seq(
       OutputSel.ADDSUB.asUInt -> addSubActivationUnit.io.rd.asSInt,
       OutputSel.MUL.asUInt    -> mulUnit.io.rd.asSInt,
-      OutputSel.REG.asUInt    -> register.io.rdMsbOut.asSInt
+      OutputSel.REG.asUInt    -> register.io.rdMsbOut.asSInt,
+      OutputSel.QUA.asUInt    -> quantizationUnit.io.rd.asSInt,
+      OutputSel.COM.asUInt    -> compareUnit.io.rd.asSInt//modified
     )
   )
 }
