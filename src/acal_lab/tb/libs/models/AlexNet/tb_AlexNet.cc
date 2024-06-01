@@ -182,8 +182,8 @@ bool tb_check(tensorInfo output, testbench pic) {
 	int8_t _max   = 0;
 	int8_t maxIdx = 0;
 	for (int i = 0; i < output.W; ++i)
-		if (_max > output.data[i]) _max = output.data[i], maxIdx = i;
-
+		if (_max < output.data[i]) _max = output.data[i], maxIdx = i;
+ 
 	return maxIdx == ans;
 }
 
